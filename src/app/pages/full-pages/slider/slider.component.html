@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">Slider</div>
+    <button routerLink='add' class="btn btn-primary col-lg-2">Add New Slider</button>
+    <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <!-- Kick start -->
+    <div id="kick-start" class="card">
+      <div class="card-header">
+        <h4 class="card-title">Slider</h4>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <app-datatable [rows]="sliderList" [type]="'slider'" [columns]="columns" (delete)="deleteRow($event)" [loadingIndicator]="loadingIndicator" [addButtonRouterLink]="'add'" [filterBy]="['Title','id']"></app-datatable>
+        </div>
+      </div>
+    </div>
+    <!--/ Kick start -->
+  </div>
+</div>

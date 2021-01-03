@@ -1,0 +1,27 @@
+<!-- <ngx-datatable #table class="" [columns]="columns" [columnMode]="ColumnMode.force" [headerHeight]="50"
+  [footerHeight]="50" rowHeight="100" [limit]="10" [rows]="rows">
+</ngx-datatable> -->
+<ngx-datatable #table class="bootstrap core-bootstrap" [rows]="rows" [loadingIndicator]="loadingIndicator"  [columnMode]="'force'"
+    [headerHeight]="50" [footerHeight]="50" [limit]="5" [rowHeight]="100" [reorderable]="true">
+    <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop" [width]="col.width"></ngx-datatable-column>
+    <ngx-datatable-column name="Active" prop="isActive" [width]="70" *ngIf="type != 'slider'">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
+          <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + row.id" (change)="rowStatus(row.id)" [value]="row.isActive" [checked]="row.isActive">
+          <label class="custom-control-label mr-1" [for]="'color-switch-' + row.id"></label>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Actions" prop="actions" [width]="70 ">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        <i (click)="deleteRow(row.id)" class="ft-trash text-primary cursor-pointer mr-2"></i>
+        <i (click)="editRow(row.id)" class="ft-edit text-primary cursor-pointer"></i>
+      </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>
+
+<!-- <ng-template #photo let-row="row">
+  <img class="img img-thumbnail datatable-image"  [src]="row.imageUrl" />
+</ng-template> -->
+
+

@@ -1,0 +1,123 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">Developer</div>
+    <button (click)="submitForm()" class="btn btn-success col-lg-2">Save</button>
+    <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <!-- Kick start -->
+    <div id="kick-start" class="card">
+      <div class="card-header">
+        <h4 class="card-title">{{isEditingMode ? 'Edit Developer' : 'Add New Developer'}}</h4>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-text">
+            <form [formGroup]="formGroup">
+              <ul ngbNav #basicnav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                  <a ngbNavLink>English</a>
+                  <ng-template ngbNavContent>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Name</label>
+                        <input formControlName="nameEn" type="text" class="form-control" >
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Metatag Title</label>
+                        <input formControlName="metatagTitleEn" type="text" class="form-control" >
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Keyword</label>
+                        <input formControlName="metatagTypeEn" type="text" class="form-control" >
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Metatag Description</label>
+                        <input formControlName="metatagDescriptionEn" type="text" class="form-control" >
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="mx-auto">
+                        <div id="full-wrapper">
+                          <div id="full-container">
+                            <label for="">Description</label>
+                            <quill-editor formControlName="descriptionEn" (onEditorCreated)="setFocus($event)"></quill-editor>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                  <a ngbNavLink>Arabic</a>
+                  <ng-template ngbNavContent>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Name</label>
+                        <input formControlName="nameAr" type="text" class="form-control" >
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Metatag Title</label>
+                        <input formControlName="metatagTitleAr" type="text" class="form-control" >
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Keyword</label>
+                        <input formControlName="metatagTypeAr" type="text" class="form-control" >
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Metatag Description</label>
+                        <input formControlName="metatagDescriptionAr" type="text" class="form-control" >
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="mx-auto">
+                        <div id="full-wrapper">
+                          <div id="full-container">
+                            <label for="">Description</label>
+                            <quill-editor formControlName="descriptionAr" (onEditorCreated)="setFocus($event)"></quill-editor>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="3">
+                  <a ngbNavLink>Config</a>
+                  <ng-template ngbNavContent>
+                    <div class="form-row">
+                      <div class="form-group col-lg-4">
+                        <label for="">Logo</label>
+                        <app-uploader  [type]="'logo'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingLogo($event)" [isMultiable]="false"></app-uploader>
+                        <app-uploader  [type]="'logo'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.logo.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingLogo($event)" [isMultiable]="false"></app-uploader>
+                      </div>
+                      <div class="form-group col-lg-4">
+                        <label for="">Upload Image Pc</label>
+                        <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
+                        <app-uploader  [type]="'imagePc'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
+                      </div>
+                      <div class="form-group col-lg-4">
+                        <label for="">Upload Image Mobile</label>
+                        <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
+                        <app-uploader [type]="'imageMobile'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
+                      </div>
+                    </div>
+                  </ng-template>
+                </li>
+              </ul>
+
+              <div [ngbNavOutlet]="basicnav" class="mt-2"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Kick start -->
+  </div>
+</div>

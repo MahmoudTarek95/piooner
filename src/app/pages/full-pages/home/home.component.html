@@ -1,0 +1,141 @@
+<!-- <div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">Slider</div>
+    <button (click)="submitForm()" class="btn btn-success col-lg-2">Save</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div id="kick-start" class="card">
+      <div class="card-header">
+        <h4 class="card-title">Edit Home</h4>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-text">
+
+              <ul ngbNav #basicnav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                  <a ngbNavLink>Contact Us</a>
+                  <ng-template ngbNavContent>
+                    <form [formGroup]="contactForm">
+                      <div class="form-row">
+                        <div class="form-group col-lg-6">
+                          <label for="">Mobile Number</label>
+                          <input formControlName="mobileNumber" type="text" class="form-control" >
+                        </div>
+                        <div class="form-group col-lg-6">
+                          <label for="">Hotline</label>
+                          <input formControlName="hotline" type="text" class="form-control" >
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-lg-6">
+                          <label for="">Location En</label>
+                          <input formControlName="mobileNumber" type="text" class="form-control" >
+                        </div>
+                        <div class="form-group col-lg-6">
+                          <label for="">Location Ar</label>
+                          <input formControlName="hotline" type="text" class="form-control" >
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-lg-6">
+                          <label for="">Email</label>
+                          <input type="email" formControlName="email" type="text" class="form-control" >
+                        </div>
+                      </div>
+                    </form>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                  <a ngbNavLink>Social Media</a>
+                  <ng-template ngbNavContent>
+                    <form [formGroup]="socialForm">
+                      <div class="form-row">
+                        <div class="form-group col-lg-6">
+                          <label for="">Link</label>
+                          <input formControlName="link" type="text" class="form-control" >
+                        </div>
+                        <div class="form-group col-lg-6">
+                          <label for="">Name</label>
+                          <input formControlName="name" type="text" class="form-control" >
+                        </div>
+                      </div>
+                    </form>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="3">
+                  <a ngbNavLink>Video Section</a>
+                  <ng-template ngbNavContent>
+                    <form [formGroup]="videoForm">
+                      <div class="form-row">
+                        <div class="form-group col-lg-6">
+                          <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
+                            <input formControlName="isVideo" type="checkbox" class="custom-control-input" id="color-switch-6" checked>
+                            <label class="custom-control-label mr-1" for="color-switch-6">
+                              <span>Video</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-lg-6">
+                          <label for="">Title En</label>
+                          <input formControlName="titleEn" type="text" class="form-control" >
+                        </div>
+                        <div class="form-group col-lg-6">
+                          <label for="">Title Ar</label>
+                          <input formControlName="titleAr" type="text" class="form-control" >
+                        </div>
+                      </div>
+                      <div class="form-row" *ngIf="videoForm.controls.isVideo.value == true">
+                        <div class="form-group col-lg-6">
+                          <label for="">Video Link</label>
+                          <input formControlName="videoLink" type="text" class="form-control" >
+                        </div>
+                      </div>
+                      <div class="form-row" *ngIf="videoForm.controls.isVideo.value == false">
+                        <div class="form-group col-lg-6">
+                          <label for="">Upload Image Pc</label>
+                          <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [formGroup]="videoForm" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
+                          <app-uploader  [type]="'imagePc'" *ngIf="isEditingMode" [imageSrc]="videoForm.controls.imagePc.value.url" [formGroup]="videoForm" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
+                        </div>
+                        <div class="form-group col-lg-6">
+                          <label for="">Upload Image Mobile</label>
+                          <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [formGroup]="videoForm" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
+                          <app-uploader [type]="'imageMobile'" *ngIf="isEditingMode" [imageSrc]="videoForm.controls.imageMobile.value.url"[formGroup]="videoForm" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="mx-auto col-lg-6">
+                          <div id="full-wrapper">
+                            <div id="full-container">
+                              <label for="">Description En</label>
+                              <quill-editor formControlName="descriptionEn" (onEditorCreated)="setFocus($event)"></quill-editor>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mx-auto col-lg-6">
+                          <div id="full-wrapper">
+                            <div id="full-container">
+                              <label for="">Description Ar</label>
+                              <quill-editor formControlName="descriptionAr" (onEditorCreated)="setFocus($event)"></quill-editor>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </ng-template>
+                </li>
+              </ul>
+              <div [ngbNavOutlet]="basicnav" class="mt-2"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ -->

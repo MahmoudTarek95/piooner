@@ -1,0 +1,18 @@
+<input type="file" class="form-control-file" (input)="onUploadFile($event)" multiple="" accept="image/*" >
+
+<div class="preview-area pt-2" *ngIf="!isMultiable && imageSrc">
+  <div class="row p-0 m-0">
+    <div class="col-lg-4 p-0 m-0">
+      <img class="img-responsive img-thumbnail" [src]="imageSrc" alt="">
+      <div (click)="removeImage()" class="remove-image" ><i class="ft-trash"></i></div>
+    </div>
+  </div>
+</div>
+<div class="preview-area pt-2" *ngIf="isMultiable">
+  <div class="row p-0 m-0">
+    <div class="col-lg-4 p-0 m-0" *ngFor='let image of images; let i = index'>
+      <img class="img-responsive img-thumbnail" [src]="image.url">
+      <div (click)="removeImage(i,image)" class="remove-image"> <i class="ft-trash"></i></div>
+    </div>
+  </div>
+</div>
