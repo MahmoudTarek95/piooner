@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FormService } from 'app/shared/services/form.service';
+import { NGXToastrService } from 'app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-edit-slider',
@@ -14,19 +15,14 @@ export class AddEditSliderComponent implements OnInit {
   sliderId
   sliderDetails = {}
 
-  vActive = 'top'; // Vertical Pills
   active = 1; // Basic Navs
-  kActive = 1; // Keep content
-  sActive; // Selecing Navs
-  disabled = true;
-  dActive; // Dynamic Navs
 
   tabs = [1, 2, 3, 4, 5];
   counter = this.tabs.length + 1;
 
   formGroup
 
-  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute) {
+  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService) {
 
     this.formGroup = fb.group({
       titleEn: ['',[Validators.required]],
@@ -34,6 +30,7 @@ export class AddEditSliderComponent implements OnInit {
       subtitleEn: ['',[Validators.required]],
       subtitleAr:['',[Validators.required]],
       link:['',[Validators.required]],
+      sortOrder:['',[Validators.required]],
       imagePc: ['',[Validators.required]],
       imageMobile: ['',[Validators.required]],
     })
@@ -54,6 +51,7 @@ export class AddEditSliderComponent implements OnInit {
       subtitleEn: sliderData.subTitleEn,
       subtitleAr:sliderData.subTitleAr,
       link:sliderData.link,
+      showOrder:sliderData.showOrder,
       imagePc: {
         id:sliderData.pcImage,
         url:sliderData.pcImageUrl
@@ -93,13 +91,17 @@ export class AddEditSliderComponent implements OnInit {
         subTitleEn: this.formGroup.controls['subtitleEn'].value,
         subTitleAr: this.formGroup.controls['subtitleAr'].value,
         link: this.formGroup.controls['link'].value,
-        pcImage: this.formGroup.controls['imagePc'].value,
-        mobileImage: this.formGroup.controls['imageMobile'].value
+        pcImage: this.formGroup.controls['imagePc'].value.id,
+        mobileImage: this.formGroup.controls['imageMobile'].value.id,
+        showOrder: this.formGroup.controls['sortOrder'].value
       }
 
       this.formService.post('Slider/AddSlider',sliderData).subscribe(res => {
         this.formGroup.reset()
         this.router.navigate(['content/slider'])
+        this.toasterService.TypeSuccess()
+      },(error) => {
+        this.toasterService.TypeError()
       })
     }else {
       let sliderData = {
@@ -110,16 +112,22 @@ export class AddEditSliderComponent implements OnInit {
         subTitleAr: this.formGroup.controls['subtitleAr'].value,
         link: this.formGroup.controls['link'].value,
         pcImage: this.formGroup.controls['imagePc'].value.id ? this.formGroup.controls['imagePc'].value.id :this.formGroup.controls['imagePc'].value,
-        mobileImage: this.formGroup.controls['imageMobile'].value.id ? this.formGroup.controls['imageMobile'].value.id : this.formGroup.controls['imageMobile'].value
+        mobileImage: this.formGroup.controls['imageMobile'].value.id ? this.formGroup.controls['imageMobile'].value.id : this.formGroup.controls['imageMobile'].value,
+        showOrder: this.formGroup.controls['sortOrder'].value
       }
 
       this.formService.post('Slider/EditSlider',sliderData).subscribe(res => {
         this.formGroup.reset()
         this.router.navigate(['content/slider'])
+        this.toasterService.TypeSuccess()
+      },(error) => {
+        this.toasterService.TypeError()
       })
     }
   }
-
+  cancel(){
+    this.router.navigate(['/content/slider'])
+  }
   close(event: MouseEvent, toRemove: number) {
     this.tabs = this.tabs.filter(id => id !== toRemove);
     event.preventDefault();
@@ -137,10 +145,5 @@ export class AddEditSliderComponent implements OnInit {
     }
   }
 
-  toggleDisabled() {
-    this.disabled = !this.disabled;
-    if (this.disabled) {
-      this.sActive = 1;
-    }
-  }
+
 }

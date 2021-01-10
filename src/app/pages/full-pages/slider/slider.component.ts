@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
+import { NGXToastrService } from 'app/shared/services/toastr.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent implements OnInit,OnDestroy {
   loadingIndicator
   sliderList
   columns
+  subscription:Subscription
 
-  constructor(private formService:FormService) {
+  constructor(private formService:FormService, private toasterService:NGXToastrService) {
     this.columns = [
       {
         name:'Title',
@@ -33,14 +36,21 @@ export class SliderComponent implements OnInit {
   deleteRow(id){
     this.formService.post('Slider/DeleteSlider/' + id, {}).subscribe(res => {
       this.getSliderList()
+      this.toasterService.TypeSuccess()
+    },(error) => {
+      this.toasterService.TypeError()
     })
   }
 
   getSliderList(){
-    this.formService.get('Slider/ListSliders').subscribe((res:any) => {
+    this.subscription = this.formService.get('Slider/ListSliders').subscribe((res:any) => {
       this.sliderList = res.data
       console.log(this.sliderList)
     })
   }
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
+  }
+
 
 }

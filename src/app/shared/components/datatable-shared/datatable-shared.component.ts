@@ -3,24 +3,26 @@ import { Router } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { DatatableComponent } from '@swimlane/ngx-datatable'
 import { FormService } from 'app/shared/services/form.service';
+import { NGXToastrService } from 'app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable-shared.component.html',
-  styleUrls: ['./datatable-shared.component.scss']
-
+  styleUrls: ['./datatable-shared.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 export class DatatableSharedComponent implements OnInit {
-  temp = [];
-
   @Input() type
-  @Input() rows =[]
+  @Input() rows = []
   @Input() columns =[]
   @Input() addButtonRouterLink
   @Input() filterBy = []
   @Input() hasImage = false
   @Input() loadingIndicator = true
   @Output() delete:EventEmitter<any> = new EventEmitter();
+  @Output() filterCity:EventEmitter<any> = new EventEmitter();
+  @Output() commercialCity:EventEmitter<any> = new EventEmitter();
+  @Output() specialCity:EventEmitter<any> = new EventEmitter();
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('status', { static: true }) photo: TemplateRef<any>; // select photo element
   @ViewChild('actions', { static: true }) actions: TemplateRef<any>; // select actions element
@@ -28,37 +30,8 @@ export class DatatableSharedComponent implements OnInit {
 
   ColumnMode = ColumnMode;
 
-  constructor(private router:Router,private formService:FormService) {
-    console.log(this.photo)
-    let data = this.rows
-
-    this.temp = [...data];
-
-    // push our inital complete list
-    this.rows = data;
-  }
+  constructor(private router:Router,private formService:FormService, private toasterService:NGXToastrService) {}
   ngOnInit(){
-
-    console.log( this.columns)
-  }
-
-  updateFilter(event) {
-    const val = event.target.value.toLowerCase();
-
-    // filter our data
-    const temp = this.temp.filter(d => {
-      if(this.filterBy && this.filterBy.length > 0){
-        this.filterBy.map(f => {
-          return d[f].toLowerCase().indexOf(val) !== -1 || d[f].toLowerCase().indexOf(val) !== -1 || !val;
-        })
-      }
-
-    });
-
-    // update the rows
-    this.rows = temp;
-    // Whenever the filter changes, always go back to the first page
-    this.table.offset = 0;
   }
 
   editRow(id){
@@ -75,20 +48,66 @@ export class DatatableSharedComponent implements OnInit {
       case 'project' :
         this.router.navigate(['content/projects/edit/' + id])
         break;
+      case 'cites' :
+        this.router.navigate(['content/cites/edit/' + id])
+        break;
+      case 'social' :
+        this.router.navigate(['content/social/edit/' + id])
+        break;
+      case 'about' :
+        this.router.navigate(['content/about/edit/' + id])
+        break;
+      case 'footer' :
+        this.router.navigate(['content/footerLinks/edit/' + id])
+        break;
     }
   }
   rowStatus(id){
     switch(this.type){
       case 'blog':
-        this.formService.post(`Blog/ChangeStatuesBlog/${id}`, {}).subscribe((res:any) => res.data)
+        this.formService.post(`Blog/ChangeStatuesBlog/${id}`, {}).subscribe((res:any) => {
+          this.toasterService.TypeSuccess()
+        },(error) => {
+          this.toasterService.TypeError()
+        })
         break;
       case 'developer':
-        this.formService.post(`Developer/ChangeStatuesDeveloper/${id}`, {}).subscribe((res:any) => res.data)
+        this.formService.post(`Developer/ChangeStatuesDeveloper/${id}`, {}).subscribe((res:any) => {
+          this.toasterService.TypeSuccess()
+        },(error) => {
+          this.toasterService.TypeError()
+        })
         break;
       case 'project':
-        this.formService.post(`Project/ChangeStatuesProject/${id}`, {}).subscribe((res:any) => res.data)
+        this.formService.post(`Project/ChangeStatuesProject/${id}`, {}).subscribe((res:any) => {
+          this.toasterService.TypeSuccess()
+        },(error) => {
+          this.toasterService.TypeError()
+        })
+        break;
+      case 'cites':
+        this.formService.post(`City/IsActiveCity/${id}`, {}).subscribe((res:any) => {
+          this.toasterService.TypeSuccess()
+        },(error) => {
+          this.toasterService.TypeError()
+        })
         break;
     }
+  }
+  parseId(id){
+    return parseInt(id)
+  }
+  citySpecial(id){
+    this.specialCity.emit(id)
+  }
+  cityFilter(id,isCommercial){
+    this.filterCity.emit({id:id,isCommercial:isCommercial})
+  }
+  cityCommercial(id,event){
+    this.commercialCity.emit({
+      id:id,
+      event:event
+    })
   }
   deleteRow(id){
     this.delete.emit(id)

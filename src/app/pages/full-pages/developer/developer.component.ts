@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
+import { NGXToastrService } from 'app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-developer',
@@ -10,7 +11,7 @@ export class DeveloperComponent implements OnInit {
   developersList
   columns
 
-  constructor(private formService:FormService) {
+  constructor(private formService:FormService,private toasterService:NGXToastrService) {
     this.columns = [
       {
         name:'Name',
@@ -26,13 +27,15 @@ export class DeveloperComponent implements OnInit {
   deleteDeveloper(id){
     this.formService.post('Developer/DeleteDeveloper/' + id, {}).subscribe(res => {
       this.getDevelopersList()
+      this.toasterService.TypeSuccess()
+    },(error) => {
+      this.toasterService.TypeError()
     })
   }
 
   getDevelopersList(){
     this.formService.get('Developer/ListDevelopers').subscribe((res:any) => {
       this.developersList = res.data
-      console.log(this.developersList)
     })
   }
 

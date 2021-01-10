@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-12 d-flex justify-content-between">
     <div class="content-header col-lg-6">Slider</div>
-    <button (click)="submitForm()" class="btn btn-success col-lg-2">Save</button>
+    <button (click)="cancel()" class="btn btn-danger col-lg-2">Cancel</button>
+    <button (click)="submitForm()" [disabled]="!formGroup.valid" class="btn btn-success col-lg-2">Save</button>
     <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
   </div>
 </div>
@@ -24,11 +25,15 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Title</label>
-                        <input formControlName="titleEn" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.titleEn.errors?.required && formGroup.controls.titleEn.touched}" formControlName="titleEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.titleEn.errors?.required && formGroup.controls.titleEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Subtitle</label>
-                        <input formControlName="subtitleEn" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.subtitleEn.errors?.required && formGroup.controls.subtitleEn.touched}" formControlName="subtitleEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.subtitleEn.errors?.required && formGroup.controls.subtitleEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
                   </ng-template>
@@ -39,11 +44,15 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Title</label>
-                        <input formControlName="titleAr" type="text" class="form-control" >
+                        <input dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.titleAr.errors?.required && formGroup.controls.titleAr.touched}" formControlName="titleAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.titleAr.errors?.required && formGroup.controls.titleAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Subtitle</label>
-                        <input formControlName="subtitleAr" type="text" class="form-control" >
+                        <input dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.subtitleAr.errors?.required && formGroup.controls.subtitleAr.touched}" formControlName="subtitleAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.subtitleAr.errors?.required && formGroup.controls.subtitleAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
                   </ng-template>
@@ -54,18 +63,26 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Link</label>
-                        <input formControlName="link" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.link.errors?.required && formGroup.controls.link.touched}" formControlName="link" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.link.errors?.required && formGroup.controls.link.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Sort order</label>
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.sortOrder.errors?.required && formGroup.controls.sortOrder.touched}" formControlName="sortOrder" type="number" class="form-control" >
+                        <div *ngIf="formGroup.controls.sortOrder.errors?.required && formGroup.controls.sortOrder.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Pc</label>
-                        <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
+                        <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
                         <app-uploader  [type]="'imagePc'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Mobile</label>
-                        <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
+                        <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                         <app-uploader [type]="'imageMobile'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url"[formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                       </div>
                     </div>

@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">Site logo</div>
+    <button (click)="submitForm()" [disabled]="!formGroup.valid" class="btn btn-success col-lg-2">Save</button>
+    <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <!-- Kick start -->
+    <div id="kick-start" class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-text">
+            <form [formGroup]="formGroup">
+              <div class="form-row">
+                <div class="form-group col-lg-6">
+                  <label for="">Upload Logo</label>
+                  <app-uploader  [type]="'imagePc'" [imageSrc]="formGroup.controls.logo.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingLogo($event)" [isMultiable]="false"></app-uploader>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="">Upload Icon</label>
+                  <app-uploader [type]="'imageMobile'" [imageSrc]="formGroup.controls.icon.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingIcon($event)" [isMultiable]="false"></app-uploader>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Kick start -->
+  </div>
+</div>

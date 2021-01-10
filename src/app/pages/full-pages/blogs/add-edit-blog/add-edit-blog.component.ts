@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FormService } from 'app/shared/services/form.service';
+import { NGXToastrService } from 'app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-edit-blog',
@@ -30,7 +31,7 @@ export class AddEditBlogComponent implements OnInit {
   selectedTag;
   enable = false
   tags = []
-  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router) {
+  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router, private toasterService:NGXToastrService) {
     this.formGroup = fb.group({
       nameEn:['',[Validators.required]],
       metatagTypeEn:['',[Validators.required]],
@@ -42,14 +43,16 @@ export class AddEditBlogComponent implements OnInit {
       metatagDescriptionAr:['',[Validators.required]],
       metatagTitleAr:['',[Validators.required]],
       descriptionAr:['',[Validators.required]],
-      sortOrder:['',[Validators.required]],
       imagePc:['',[Validators.required]],
       imageMobile:['',[Validators.required]],
       whatsNumber:['',[Validators.required]],
       phone:['',[Validators.required]],
       galleryPc:[[],[Validators.required]],
       galleryMobile:[[],[Validators.required]],
-      isRelatedBlog:[false,[Validators.required]]
+      isRelatedBlog:[false,[Validators.required]],
+      bannerPc:['',[Validators.required]],
+      bannerMobile:['',[Validators.required]],
+      sortOrder:['',[Validators.required]],
     })
   }
 
@@ -89,7 +92,17 @@ export class AddEditBlogComponent implements OnInit {
       metatagDescriptionAr:blogData.metatagDescriptionAr,
       metatagTitleAr:blogData.metatagTitleAr,
       descriptionAr:blogData.descriptionAr,
-      // sortOrder:['',[Validators.required]],
+      sortOrder:blogData.showOrder,
+      bannerPc:{
+        bannerId:blogData.banner.id,
+        id:blogData.banner.pcImage,
+        url:blogData.banner.pcImageUrl
+      },
+      bannerMobile:{
+        bannerId:blogData.banner.id,
+        id:blogData.banner.mobileImage,
+        url:blogData.banner.mobileImageUrl
+      },
       imagePc:{
         id:blogData.pcImage,
         url:blogData.pcImageUrl
@@ -110,6 +123,17 @@ export class AddEditBlogComponent implements OnInit {
 
   }
 
+  doneUploadingImagePcBanner(event){
+    this.formGroup.patchValue({
+      bannerPc:event
+    })
+  }
+  doneUploadingImageMobileBanner(event){
+    this.formGroup.patchValue({
+      bannerMobile:event
+    })
+  }
+
   doneUploadingImagePc(event){
     this.formGroup.patchValue({
       imagePc:event
@@ -122,9 +146,6 @@ export class AddEditBlogComponent implements OnInit {
   }
   doneUploadingImageGalleryPc(event){
     this.formGroup.controls.galleryPc.setValue([...this.formGroup.controls.galleryPc.value, event])
-    if(this.isEditingMode){
-    this.formGroup.controls.galleryPc.value
-    }
   }
   doneUploadingImageGalleryMobile(event){
     this.formGroup.controls.galleryMobile.setValue([...this.formGroup.controls.galleryMobile.value, event])
@@ -148,16 +169,15 @@ export class AddEditBlogComponent implements OnInit {
     if(!this.isEditingMode){
       for (let i = 0; i < galleryPc.length; i++) {
         galleryList.push({
-          pcImage:galleryPc[i],
-          mobileImage:galleryMobile[i]
+          pcImage:galleryPc[i].id,
+          mobileImage:galleryMobile[i].id
         })
       }
       let blogObj ={
         nameEn: this.formGroup.controls['nameEn'].value,
         nameAr: this.formGroup.controls['nameAr'].value,
-        showOrder: 0,
-        pcImage: this.formGroup.controls['imagePc'].value,
-        mobileImage: this.formGroup.controls['imageMobile'].value,
+        pcImage: this.formGroup.controls['imagePc'].value.id,
+        mobileImage: this.formGroup.controls['imageMobile'].value.id,
         descriptionEn: this.formGroup.controls['descriptionEn'].value,
         descriptionAr: this.formGroup.controls['descriptionAr'].value,
         keywordAr: this.formGroup.controls['metatagTypeAr'].value,
@@ -169,16 +189,27 @@ export class AddEditBlogComponent implements OnInit {
         phone: this.formGroup.controls['phone'].value,
         whatsNumer: this.formGroup.controls['whatsNumber'].value,
         isRelatedBlog: this.formGroup.controls['isRelatedBlog'].value,
+        showOrder: this.formGroup.controls['sortOrder'].value,
         gallery: galleryList,
+        banner: {
+          pcImage:this.formGroup.controls['bannerPc'].value.id,
+          mobileImage:this.formGroup.controls['bannerMobile'].value.id,
+        },
         tags: this.selectedTag.map(t => t.id)
       }
-
-      this.formService.post('Blog/AddBlog',blogObj).subscribe(res => {
-        if(res){
-          this.formGroup.reset()
-          this.router.navigate(['/content/blogs'])
-        }
-      })
+      if (this.selectedTag.length < 3 || this.selectedTag.length > 5){
+        this.toasterService.TypeWarning('Minimum of Tags is 3 and maximum is 5')
+      }else{
+        this.formService.post('Blog/AddBlog',blogObj).subscribe(res => {
+          if(res){
+            this.formGroup.reset()
+            this.router.navigate(['/content/blogs'])
+            this.toasterService.TypeSuccess()
+          }
+        },(error) => {
+          this.toasterService.TypeError()
+        })
+      }
     }else {
       for (let i = 0; i < galleryPc.length; i++) {
         galleryList.push({
@@ -187,13 +218,10 @@ export class AddEditBlogComponent implements OnInit {
           mobileImage:galleryMobile[i].id ? galleryMobile[i].id : galleryMobile[i]
         })
       }
-      console.log(galleryList)
-      console.log(galleryPc,galleryMobile)
       let blogObj ={
         id:this.blogId,
         nameEn: this.formGroup.controls['nameEn'].value,
         nameAr: this.formGroup.controls['nameAr'].value,
-        showOrder: 0,
         pcImage: this.formGroup.controls['imagePc'].value.id ? this.formGroup.controls['imagePc'].value.id : this.formGroup.controls['imagePc'].value,
         mobileImage: this.formGroup.controls['imageMobile'].value.id ? this.formGroup.controls['imageMobile'].value.id : this.formGroup.controls['imageMobile'].value,
         descriptionEn: this.formGroup.controls['descriptionEn'].value,
@@ -207,43 +235,43 @@ export class AddEditBlogComponent implements OnInit {
         phone: this.formGroup.controls['phone'].value,
         whatsNumer: this.formGroup.controls['whatsNumber'].value,
         isRelatedBlog: this.formGroup.controls['isRelatedBlog'].value,
+        showOrder: this.formGroup.controls['sortOrder'].value,
         gallery: galleryList,
+        banner:{
+          id: this.formGroup.controls['bannerPc'].value.bannerId ? this.formGroup.controls['bannerPc'].value.bannerId : 0,
+          pcImage:this.formGroup.controls['bannerPc'].value.id,
+          mobileImage:this.formGroup.controls['bannerMobile'].value.id
+        },
         tags: this.selectedTag.map(t => t.id)
       }
 
-      this.formService.post('Blog/UpdateBlog',blogObj).subscribe(res => {
-        if(res){
-          this.formGroup.reset()
-          this.router.navigate(['/content/blogs'])
-        }
-      })
+      if (this.selectedTag.length < 3 || this.selectedTag.length > 5){
+        this.toasterService.TypeWarning('Minimum of Tags is 3 and maximum is 5')
+      }else{
+        this.formService.post('Blog/UpdateBlog',blogObj).subscribe(res => {
+          if(res){
+            this.formGroup.reset()
+            this.router.navigate(['/content/blogs'])
+          }
+          this.toasterService.TypeSuccess()
+        },(error) => {
+          this.toasterService.TypeError()
+        })
+      }
+
     }
+  }
+  cancel(){
+    this.router.navigate(['/content/blogs'])
   }
 
   deleteGallery(id){
-    this.formService.post('Blog/DeleteBlogGallery/' + id, {}).subscribe(res => res)
-  }
-  close(event: MouseEvent, toRemove: number) {
-    this.tabs = this.tabs.filter(id => id !== toRemove);
-    event.preventDefault();
-    event.stopImmediatePropagation();
-  }
-
-  add(event: MouseEvent) {
-    this.tabs.push(this.counter++);
-    event.preventDefault();
-  }
-
-  onNavChange(changeEvent: NgbNavChangeEvent) {
-    if (changeEvent.nextId === 3) {
-      changeEvent.preventDefault();
-    }
-  }
-
-  toggleDisabled() {
-    this.disabled = !this.disabled;
-    if (this.disabled) {
-      this.sActive = 1;
+    if(id && id != 0){
+      this.formService.post('Blog/DeleteBlogGallery/' + id, {}).subscribe(res => {
+        this.toasterService.TypeSuccess()
+      },(error) => {
+        this.toasterService.TypeError()
+      })
     }
   }
   //events starts

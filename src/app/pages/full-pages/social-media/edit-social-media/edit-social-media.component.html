@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">Social Media</div>
+    <button (click)="cancel()" class="btn btn-danger col-lg-2">Cancel</button>
+    <button (click)="submitForm()" [disabled]="!socialForm.valid" class="btn btn-success col-lg-2">Save</button>
+    <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <!-- Kick start -->
+    <div id="kick-start" class="card">
+      <div class="card-header">
+        <h4 class="card-title">Edit Social Media</h4>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-text">
+            <form [formGroup]="socialForm">
+              <div class="form-row">
+                <div class="form-group col-lg-6">
+                  <label for="">Name</label>
+                  <input [ngClass]="{ 'is-invalid': socialForm.controls.name.errors?.required && socialForm.controls.name.touched}" formControlName="name" type="text" class="form-control" >
+                  <div *ngIf="socialForm.controls.name.errors?.required && socialForm.controls.name.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="">Link</label>
+                  <input [ngClass]="{ 'is-invalid': socialForm.controls.link.errors?.required && socialForm.controls.link.touched}" formControlName="link" type="text" class="form-control" >
+                  <div *ngIf="socialForm.controls.link.errors?.required && socialForm.controls.link.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Kick start -->
+  </div>
+</div>

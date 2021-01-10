@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FormService } from 'app/shared/services/form.service';
+import { NGXToastrService } from 'app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-add-edit-developer',
@@ -30,7 +31,7 @@ export class AddEditDeveloperComponent implements OnInit {
   selectedTag;
   enable = false
   tags = []
-  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router) {
+  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router,private toasterService:NGXToastrService) {
     this.formGroup = fb.group({
       nameEn:['',[Validators.required]],
       metatagTypeEn:['',[Validators.required]],
@@ -44,7 +45,8 @@ export class AddEditDeveloperComponent implements OnInit {
       descriptionAr:['',[Validators.required]],
       imagePc:['',[Validators.required]],
       imageMobile:['',[Validators.required]],
-      logo:['',[Validators.required]]
+      logo:['',[Validators.required]],
+      sortOrder:['',[Validators.required]],
     })
   }
 
@@ -69,7 +71,7 @@ export class AddEditDeveloperComponent implements OnInit {
       metatagDescriptionAr:developerData.metatagDescriptionAr,
       metatagTitleAr:developerData.metatagTitleAr,
       descriptionAr:developerData.descriptionAr,
-      // sortOrder:['',[Validators.required]],
+      showOrder:developerData.sortOrder,
       imagePc:{
         id:developerData.pcImage,
         url:developerData.pcImageUrl
@@ -107,8 +109,8 @@ export class AddEditDeveloperComponent implements OnInit {
       let blogObj ={
         nameEn: this.formGroup.controls['nameEn'].value,
         nameAr: this.formGroup.controls['nameAr'].value,
-        pcImage: this.formGroup.controls['imagePc'].value,
-        mobileImage: this.formGroup.controls['imageMobile'].value,
+        pcImage: this.formGroup.controls['imagePc'].value.id,
+        mobileImage: this.formGroup.controls['imageMobile'].value.id,
         descriptionEn: this.formGroup.controls['descriptionEn'].value,
         descriptionAr: this.formGroup.controls['descriptionAr'].value,
         keywordAr: this.formGroup.controls['metatagTypeAr'].value,
@@ -117,14 +119,18 @@ export class AddEditDeveloperComponent implements OnInit {
         metatagTitleEn: this.formGroup.controls['metatagTitleEn'].value,
         metatagDescriptionAr: this.formGroup.controls['metatagDescriptionAr'].value,
         metatagDescriptionEn: this.formGroup.controls['metatagDescriptionEn'].value,
-        logo: this.formGroup.controls['logo'].value
+        logo: this.formGroup.controls['logo'].value.id,
+        showOrder: this.formGroup.controls['sortOrder'].value,
       }
 
       this.formService.post('Developer/AddDeveloper',blogObj).subscribe(res => {
         if(res){
           this.formGroup.reset()
           this.router.navigate(['/content/developers'])
+          this.toasterService.TypeSuccess()
         }
+      },(error) => {
+        this.toasterService.TypeError()
       })
     }else {
       let blogObj ={
@@ -141,16 +147,24 @@ export class AddEditDeveloperComponent implements OnInit {
         metatagTitleEn: this.formGroup.controls['metatagTitleEn'].value,
         metatagDescriptionAr: this.formGroup.controls['metatagDescriptionAr'].value,
         metatagDescriptionEn: this.formGroup.controls['metatagDescriptionEn'].value,
-        logo: this.formGroup.controls['logo'].value
+        logo: this.formGroup.controls['logo'].value.id,
+        showOrder: this.formGroup.controls['sortOrder'].value,
       }
 
       this.formService.post('Developer/EditDeveloper',blogObj).subscribe(res => {
         if(res){
           this.formGroup.reset()
           this.router.navigate(['/content/developers'])
+          this.toasterService.TypeSuccess()
         }
+      },(error) => {
+        this.toasterService.TypeError()
       })
     }
+  }
+
+  cancel(){
+    this.router.navigate(['/content/developers'])
   }
 
   close(event: MouseEvent, toRemove: number) {

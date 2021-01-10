@@ -10,9 +10,6 @@
   <div class="col-12">
     <!-- Kick start -->
     <div id="kick-start" class="card">
-      <div class="card-header">
-        <h4 class="card-title">Developers</h4>
-      </div>
       <div class="card-content">
         <div class="card-body">
           <app-datatable [rows]="developersList" [type]="'developer'" (delete)="deleteDeveloper($event)" [columns]="columns" [addButtonRouterLink]="'add'" [filterBy]="['id','nameEn','showOrder']"></app-datatable>

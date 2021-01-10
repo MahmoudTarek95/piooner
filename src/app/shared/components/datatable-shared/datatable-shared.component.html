@@ -1,21 +1,45 @@
 <!-- <ngx-datatable #table class="" [columns]="columns" [columnMode]="ColumnMode.force" [headerHeight]="50"
   [footerHeight]="50" rowHeight="100" [limit]="10" [rows]="rows">
 </ngx-datatable> -->
-<ngx-datatable #table class="bootstrap core-bootstrap" [rows]="rows" [loadingIndicator]="loadingIndicator"  [columnMode]="'force'"
+<ngx-datatable #table class="bootstrap core-bootstrap" [rows]="rows" [columnMode]="'force'"
     [headerHeight]="50" [footerHeight]="50" [limit]="5" [rowHeight]="100" [reorderable]="true">
     <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop" [width]="col.width"></ngx-datatable-column>
-    <ngx-datatable-column name="Active" prop="isActive" [width]="70" *ngIf="type != 'slider'">
+    <ngx-datatable-column name="Active" prop="isActive" [width]="70" *ngIf="type != 'slider' && type != 'social' && type != 'about' && type != 'footer' && type != 'userManagment' && type != 'contactForm'" >
       <ng-template ngx-datatable-cell-template let-row="row">
         <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
-          <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + row.id" (change)="rowStatus(row.id)" [value]="row.isActive" [checked]="row.isActive">
+          <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + row.id" (change)="rowStatus(row.id)"  [checked]="row.isActive">
           <label class="custom-control-label mr-1" [for]="'color-switch-' + row.id"></label>
         </div>
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="Actions" prop="actions" [width]="70 ">
+    <ngx-datatable-column name="Special City" prop="specialCity" [width]="70" *ngIf="type == 'cites'">
       <ng-template ngx-datatable-cell-template let-row="row">
-        <i (click)="deleteRow(row.id)" class="ft-trash text-primary cursor-pointer mr-2"></i>
-        <i (click)="editRow(row.id)" class="ft-edit text-primary cursor-pointer"></i>
+        <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
+          <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + (parseId(row.id) + 500)" (change)="citySpecial(row.id)"  [checked]="row.specialCity">
+          <label class="custom-control-label mr-1" [for]="'color-switch-' + (parseId(row.id) + 500)"></label>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Filter" prop="isFilter" [width]="70" *ngIf="type == 'cites'">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
+          <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + (parseId(row.id) + 5000)" (change)="cityFilter(row.id,row.isCommercial)"  [checked]="row.isFilter">
+          <label class="custom-control-label mr-1" [for]="'color-switch-' + (parseId(row.id) + 5000)"></label>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Commercial" prop="isCommercial" [width]="70" *ngIf="type == 'cites'">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
+          <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + (parseId(row.id) + 6000)" (change)="cityCommercial(row.id,$event)"  [checked]="row.isCommercial">
+          <label class="custom-control-label mr-1" [for]="'color-switch-' + (parseId(row.id) + 6000)"></label>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Actions" prop="actions" [width]="70 " *ngIf="type != 'contactForm'">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        <i (click)="deleteRow(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" *ngIf=" type != 'social' && type != 'about'"></i>
+        <i (click)="editRow(row.id)" class="ft-edit text-primary cursor-pointer font-size" *ngIf="type != 'userManagment'"></i>
       </ng-template>
     </ngx-datatable-column>
 </ngx-datatable>

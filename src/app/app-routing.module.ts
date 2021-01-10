@@ -19,7 +19,7 @@ const appRoutes: Routes = [
   { path: '', component: ContentLayoutComponent, data: { title: 'content Views' }, children: CONTENT_ROUTES },
   {
     path: '**',
-    redirectTo: 'pages/login'
+    redirectTo: 'pages/error'
   }
 ];
 

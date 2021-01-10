@@ -8,6 +8,8 @@ import { CustomizerService } from '../services/customizer.service';
 import { FormControl } from '@angular/forms';
 import { LISTITEMS } from '../data/template-search';
 import { Router } from '@angular/router';
+import { AuthRolesService } from '../auth/auth-roles.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: "app-navbar",
@@ -16,6 +18,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   currentLang = "en";
+  userInfo
   selectedLanguageText = "English";
   selectedLanguageFlag = "./assets/img/flags/us.png";
   toggleClass = "ft-maximize";
@@ -48,7 +51,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(public translate: TranslateService,
     private layoutService: LayoutService,
     private router: Router,
-    private configService: ConfigService, private cdr: ChangeDetectorRef) {
+    private configService: ConfigService, private cdr: ChangeDetectorRef,
+    private authRolesService:AuthRolesService,
+    private authService:AuthService) {
 
     const browserLang: string = translate.getBrowserLang();
     translate.use(browserLang.match(/en|es|pt|de/) ? browserLang : "en");
@@ -63,6 +68,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getUserInfo()
     this.listItems = LISTITEMS;
 
     if (this.innerWidth < 1200) {
@@ -214,6 +220,15 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
+  }
+
+  getUserInfo(){
+    this.userInfo = this.authRolesService.getUserDetails()
+  }
+
+  logout(e:Event){
+    e.preventDefault()
+    this.authService.logout()
   }
 
 

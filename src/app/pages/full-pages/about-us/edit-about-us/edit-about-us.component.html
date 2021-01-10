@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">About us</div>
+    <button (click)="cancel()" class="btn btn-danger col-lg-2">Cancel</button>
+    <button (click)="submitForm()" [disabled]="!aboutForm.valid" class="btn btn-success col-lg-2">Save</button>
+    <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <!-- Kick start -->
+    <div id="kick-start" class="card">
+      <div class="card-header">
+        <h4 class="card-title">Edit About Us</h4>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-text">
+            <form [formGroup]="aboutForm">
+              <div class="form-row">
+                <div class="form-group col-lg-6">
+                  <label for="">Title EN</label>
+                  <input [ngClass]="{ 'is-invalid': aboutForm.controls.titleEN.errors?.required && aboutForm.controls.titleEN.touched}" formControlName="titleEN" type="text" class="form-control" >
+                  <div *ngIf="aboutForm.controls.titleEN.errors?.required && aboutForm.controls.titleEN.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="">Title Ar</label>
+                  <input [ngClass]="{ 'is-invalid': aboutForm.controls.titleAr.errors?.required && aboutForm.controls.titleAr.touched}" formControlName="titleAr" type="text" class="form-control" >
+                  <div *ngIf="aboutForm.controls.titleAr.errors?.required && aboutForm.controls.titleAr.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-lg-6">
+                  <label for="">Description EN</label>
+                  <textarea [ngClass]="{ 'is-invalid': aboutForm.controls.descriptionEn.errors?.required && aboutForm.controls.descriptionEn.touched}" formControlName="descriptionEn" class="form-control"  name="" id="" cols="30" rows="10"></textarea>
+                  <div *ngIf="aboutForm.controls.descriptionEn.errors?.required && aboutForm.controls.descriptionEn.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="">Description AR</label>
+                  <textarea [ngClass]="{ 'is-invalid': aboutForm.controls.descriptionAr.errors?.required && aboutForm.controls.descriptionAr.touched}" formControlName="descriptionAr" class="form-control"  name="" id="" cols="30" rows="10"></textarea>
+                  <div *ngIf="aboutForm.controls.descriptionAr.errors?.required && aboutForm.controls.descriptionAr.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Kick start -->
+  </div>
+</div>

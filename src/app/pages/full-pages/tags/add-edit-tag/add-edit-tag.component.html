@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">Tags</div>
+    <button (click)="cancel()" class="btn btn-danger col-lg-2">Cancel</button>
+    <button (click)="submitForm()" [disabled]="!formGroup.valid" class="btn btn-success col-lg-2">Save</button>
+    <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <!-- Kick start -->
+    <div id="kick-start" class="card">
+      <div class="card-header">
+        <h4 class="card-title">{{isEditingMode ? 'Edit Tag' : 'Add New Tag'}}</h4>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-text">
+            <form [formGroup]="formGroup">
+              <ul ngbNav #basicnav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                  <a ngbNavLink>English</a>
+                  <ng-template ngbNavContent>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Name</label>
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.nameEn.errors?.required && formGroup.controls.nameEn.touched}" formControlName="nameEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.nameEn.errors?.required && formGroup.controls.nameEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                  <a ngbNavLink>Arabic</a>
+                  <ng-template ngbNavContent>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Name</label>
+                        <input dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.nameAr.errors?.required && formGroup.controls.nameAr.touched}" formControlName="nameAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.nameAr.errors?.required && formGroup.controls.nameAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </li>
+              </ul>
+
+              <div [ngbNavOutlet]="basicnav" class="mt-2"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Kick start -->
+  </div>
+</div>

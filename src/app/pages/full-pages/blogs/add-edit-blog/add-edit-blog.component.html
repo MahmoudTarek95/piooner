@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-12 d-flex justify-content-between">
     <div class="content-header col-lg-6">Blog</div>
-    <button (click)="submitForm()" class="btn btn-success col-lg-2">Save</button>
+    <button (click)="cancel()" class="btn btn-danger col-lg-2">Cancel</button>
+    <button (click)="submitForm()" [disabled]="!formGroup.valid" class="btn btn-success col-lg-2">Save</button>
     <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
   </div>
 </div>
@@ -24,21 +25,29 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Name</label>
-                        <input formControlName="nameEn" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.nameEn.errors?.required && formGroup.controls.nameEn.touched}" formControlName="nameEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.nameEn.errors?.required && formGroup.controls.nameEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Metatag Title</label>
-                        <input formControlName="metatagTitleEn" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.metatagTitleEn.errors?.required && formGroup.controls.metatagTitleEn.touched}" formControlName="metatagTitleEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.metatagTitleEn.errors?.required && formGroup.controls.metatagTitleEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Keyword</label>
-                        <input formControlName="metatagTypeEn" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.metatagTypeEn.errors?.required && formGroup.controls.metatagTypeEn.touched}" formControlName="metatagTypeEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.metatagTypeEn.errors?.required && formGroup.controls.metatagTypeEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Metatag Description</label>
-                        <input formControlName="metatagDescriptionEn" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.metatagDescriptionEn.errors?.required && formGroup.controls.metatagDescriptionEn.touched}" formControlName="metatagDescriptionEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.metatagDescriptionEn.errors?.required && formGroup.controls.metatagDescriptionEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
                     <div class="form-row">
@@ -46,7 +55,9 @@
                         <div id="full-wrapper">
                           <div id="full-container">
                             <label for="">Description</label>
-                            <quill-editor formControlName="descriptionEn" (onEditorCreated)="setFocus($event)"></quill-editor>
+                            <quill-editor formControlName="descriptionEn"></quill-editor>
+                            <div *ngIf="formGroup.controls.descriptionEn.errors?.required && formGroup.controls.descriptionEn.touched" class="help-block mt-1 text-danger"> <i
+                              class="ft-alert-circle align-middle"></i> This field is required </div>
                           </div>
                         </div>
                       </div>
@@ -59,21 +70,29 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Name</label>
-                        <input formControlName="nameAr" type="text" class="form-control" >
+                        <input dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.nameAr.errors?.required && formGroup.controls.nameAr.touched}" formControlName="nameAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.nameAr.errors?.required && formGroup.controls.nameAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Metatag Title</label>
-                        <input formControlName="metatagTitleAr" type="text" class="form-control" >
+                        <input dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.metatagTitleAr.errors?.required && formGroup.controls.metatagTitleAr.touched}" formControlName="metatagTitleAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.metatagTitleAr.errors?.required && formGroup.controls.metatagTitleAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Keyword</label>
-                        <input formControlName="metatagTypeAr" type="text" class="form-control" >
+                        <input dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.metatagTypeAr.errors?.required && formGroup.controls.metatagTypeAr.touched}" formControlName="metatagTypeAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.metatagTypeAr.errors?.required && formGroup.controls.metatagTypeAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Metatag Description</label>
-                        <input formControlName="metatagDescriptionAr" type="text" class="form-control" >
+                        <input dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.metatagDescriptionAr.errors?.required && formGroup.controls.metatagDescriptionAr.touched}" formControlName="metatagDescriptionAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.metatagDescriptionAr.errors?.required && formGroup.controls.metatagDescriptionAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
                     <div class="form-row">
@@ -81,7 +100,9 @@
                         <div id="full-wrapper">
                           <div id="full-container">
                             <label for="">Description</label>
-                            <quill-editor formControlName="descriptionAr" (onEditorCreated)="setFocus($event)"></quill-editor>
+                            <quill-editor formControlName="descriptionAr"></quill-editor>
+                            <div *ngIf="formGroup.controls.descriptionAr.errors?.required && formGroup.controls.descriptionAr.touched" class="help-block mt-1 text-danger"> <i
+                              class="ft-alert-circle align-middle"></i> This field is required </div>
                           </div>
                         </div>
                       </div>
@@ -94,21 +115,36 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Phone</label>
-                        <input formControlName="phone" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.phone.errors?.required && formGroup.controls.phone.touched}" formControlName="phone" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.phone.errors?.required && formGroup.controls.phone.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Whats App number</label>
-                        <input formControlName="whatsNumber" type="text" class="form-control" >
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.whatsNumber.errors?.required && formGroup.controls.whatsNumber.touched}" formControlName="whatsNumber" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.whatsNumber.errors?.required && formGroup.controls.whatsNumber.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Tags</label>
-                        <ng-select [items]="tags" bindLabel="name" placeholder="Select Tags" [multiple]="true" [(ngModel)]="selectedTag" [ngModelOptions]="{standalone: true}"></ng-select>
+                        <ng-select [ngClass]="{ 'is-invalid': !selectedTag}" [items]="tags" bindLabel="name" placeholder="Select Tags" [multiple]="true" [(ngModel)]="selectedTag" [ngModelOptions]="{standalone: true}"></ng-select>
+                        <div *ngIf="!selectedTag" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
-                      <div class="form-group col-lg-6 pt-4">
+                      <div class="form-group col-lg-6">
+                        <label for="">Show order</label>
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.sortOrder.errors?.required && formGroup.controls.sortOrder.touched}" formControlName="sortOrder" type="number" class="form-control" >
+                        <div *ngIf="formGroup.controls.sortOrder.errors?.required && formGroup.controls.sortOrder.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
                         <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
-                          <input formControlName="isRelatedBlog" type="checkbox" class="custom-control-input" id="color-switch-6" checked>
+                          <input formControlName="isRelatedBlog" type="checkbox" class="custom-control-input" id="color-switch-6" >
                           <label class="custom-control-label mr-1" for="color-switch-6">
                             <span>Related Blog</span>
                           </label>
@@ -118,13 +154,13 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Pc</label>
-                        <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
+                        <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
                         <app-uploader  [type]="'imagePc'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Mobile</label>
-                        <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
-                        <app-uploader [type]="'imageMobile'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
+                        <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
+                        <app-uploader [type]="'imageMobile'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url"[formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                       </div>
                     </div>
                   </ng-template>
@@ -135,13 +171,28 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6 border-right">
                         <label for="">Upload Image Pc</label>
-                        <app-uploader  [type]="'galleryPc'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageGalleryPc($event)" [isMultiable]="true"></app-uploader>
-                        <app-uploader  [type]="'galleryPc'"  [tempImages]="gallerPcImageMap" *ngIf="isEditingMode" [formGroup]="formGroup" (deletedGallery)="deleteGallery($event)" (uploadedImage)="doneUploadingImageGalleryPc($event)" [isMultiable]="true"></app-uploader>
+                        <app-uploader  [type]="'galleryPc'" [images]="formGroup.controls.galleryPc.value" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageGalleryPc($event)" [isMultiable]="true"></app-uploader>
+                        <app-uploader  [type]="'galleryPc'" [images]="formGroup.controls.galleryPc.value" [tempImages]="gallerPcImageMap" *ngIf="isEditingMode" [formGroup]="formGroup" (deletedGallery)="deleteGallery($event)" (uploadedImage)="doneUploadingImageGalleryPc($event)" [isMultiable]="true"></app-uploader>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Mobile</label>
-                        <app-uploader  [type]="'galleryMobile'" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageGalleryMobile($event)" [isMultiable]="true"></app-uploader>
-                        <app-uploader  [type]="'galleryMobile'" [tempImages]="galleryMobileImageMap" *ngIf="isEditingMode" [formGroup]="formGroup" (deletedGallery)="deleteGallery($event)" (uploadedImage)="doneUploadingImageGalleryMobile($event)" [isMultiable]="true"></app-uploader>
+                        <app-uploader  [type]="'galleryMobile'" [images]="formGroup.controls.galleryMobile.value" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageGalleryMobile($event)" [isMultiable]="true"></app-uploader>
+                        <app-uploader  [type]="'galleryMobile'" [images]="formGroup.controls.galleryMobile.value" [tempImages]="galleryMobileImageMap" *ngIf="isEditingMode" [formGroup]="formGroup" (deletedGallery)="deleteGallery($event)" (uploadedImage)="doneUploadingImageGalleryMobile($event)" [isMultiable]="true"></app-uploader>
+                      </div>
+                    </div>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="5">
+                  <a ngbNavLink>Banner</a>
+                  <ng-template ngbNavContent>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Upload Image Pc</label>
+                        <app-uploader  [type]="'bannerPc'" [imageSrc]="formGroup.controls.bannerPc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePcBanner($event)" [isMultiable]="false"></app-uploader>
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Upload Image Mobile</label>
+                        <app-uploader [type]="'bannerMobile'" [imageSrc]="formGroup.controls.bannerMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobileBanner($event)" [isMultiable]="false"></app-uploader>
                       </div>
                     </div>
                   </ng-template>

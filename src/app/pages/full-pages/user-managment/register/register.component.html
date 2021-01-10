@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">Add User</div>
+    <button (click)="submitForm()" [disabled]="!registerForm.valid" class="btn btn-success col-lg-2">Add</button>
+    <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <!-- Kick start -->
+    <div id="kick-start" class="card">
+      <div class="card-header">
+        <h4 class="card-title">User Info</h4>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-text">
+            <form [formGroup]="registerForm">
+              <div class="form-row">
+                <div class="form-group col-lg-6">
+                  <label for="">Username</label>
+                  <input [ngClass]="{ 'is-invalid': registerForm.controls.userName.errors?.required && registerForm.controls.userName.touched}" type="text" formControlName="userName" type="text" class="form-control" >
+                  <div *ngIf="registerForm.controls.userName.errors?.required && registerForm.controls.userName.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="">Email</label>
+                  <input [ngClass]="{ 'is-invalid': (registerForm.controls.email.errors?.required || registerForm.controls.email.errors?.email) && registerForm.controls.email.touched}" type="email" formControlName="email"  class="form-control" >
+                  <div *ngIf="registerForm.controls.email.errors?.required && registerForm.controls.email.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                  <div *ngIf="registerForm.controls.email.errors?.email && registerForm.controls.email.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> Email must be a valid email address</div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-lg-6">
+                  <label for="">Password</label>
+                  <input [ngClass]="{ 'is-invalid': registerForm.controls.password.errors?.required && registerForm.controls.password.touched}" type="password" formControlName="password"  class="form-control" >
+                  <div *ngIf="registerForm.controls.password.errors?.required && registerForm.controls.password.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="">Confirm Password</label>
+                  <input [ngClass]="{ 'is-invalid': registerForm.controls.confirmPassword.errors?.mustMatch}" type="password" formControlName="confirmPassword"  class="form-control" >
+                  <div *ngIf="(registerForm.controls.confirmPassword.errors?.mustMatch)"
+                  class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Passwords must
+                  match
+                </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Kick start -->
+  </div>
+</div>

@@ -26,6 +26,10 @@ import { FullLayoutComponent } from "./layouts/full/full-layout.component";
 import { AuthService } from "./shared/auth/auth.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
+import { AuthRolesService } from "./shared/auth/auth-roles.service";
+import { AuthRoleGuard } from "./shared/auth/auth-role.guard";
+import { DatePipe } from "@angular/common";
+import { FormService } from "./shared/services/form.service";
 
 var firebaseConfig = {
   apiKey: "YOUR_API_KEY", //YOUR_API_KEY
@@ -58,6 +62,7 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     NgbModule,
+
     NgxSpinnerModule,
     TranslateModule.forRoot({
       loader: {
@@ -72,8 +77,12 @@ export function createTranslateLoader(http: HttpClient) {
     PerfectScrollbarModule
   ],
   providers: [
+    FormService,
     AuthService,
     AuthGuard,
+    AuthRolesService,
+    AuthRoleGuard,
+    DatePipe,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     WINDOW_PROVIDERS
   ],

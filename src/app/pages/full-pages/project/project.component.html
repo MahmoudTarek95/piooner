@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-12 d-flex justify-content-between">
     <div class="content-header col-lg-6">Projects</div>
+    <button *ngIf="selectedIds && selectedIds.length > 0" (click)="deleteSelectedValues()" class="btn btn-danger col-lg-2">Delete Selected</button>
     <button routerLink='add' class="btn btn-primary col-lg-2">Add New Project</button>
     <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
   </div>
@@ -10,12 +11,49 @@
   <div class="col-12">
     <!-- Kick start -->
     <div id="kick-start" class="card">
-      <div class="card-header">
-        <h4 class="card-title">Projects</h4>
-      </div>
       <div class="card-content">
         <div class="card-body">
-          <app-datatable [rows]="projectsList" [type]="'project'" (delete)="deleteProject($event)" [columns]="columns" [addButtonRouterLink]="'add'" [filterBy]="['id','nameEn','showOrder']"></app-datatable>
+          <fieldset class="form-group">
+            <label for="ngx-filter-ref">Search:
+              <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200" type="text"
+                placeholder="Filter by name or email..."  (keyup)="filterUpdate($event)" />
+            </label>
+          </fieldset>
+          <ngx-datatable #table class="bootstrap core-bootstrap header-height-50" [rows]="rows"
+          [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [rowHeight]="100" [limit]="5"
+          [selected]="chkBoxSelected" [selectionType]="SelectionType.checkbox"
+          (select)="customChkboxOnSelect($event)" >
+          <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+            [resizeable]="false">
+            <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
+              let-selectFn="selectFn">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" />
+              </div>
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+              let-onCheckboxChangeFn="onCheckboxChangeFn">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox"  [checked]="isSelected" (change)="onCheckboxChangeFn($event)" />
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop" [width]="100"></ngx-datatable-column>
+          <ngx-datatable-column name="Active" prop="isActive" [width]="70" >
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
+                <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + row.id" (change)="rowStatus(row.id)"  [checked]="row.isActive">
+                <label class="custom-control-label mr-1" [for]="'color-switch-' + row.id"></label>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Actions" prop="actions" [width]="70 ">
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <i (click)="deleteProject(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" ></i>
+              <i (click)="editRow(row.id)" class="ft-edit text-primary cursor-pointer font-size"></i>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
         </div>
       </div>
     </div>

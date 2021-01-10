@@ -58,7 +58,7 @@ export class LoginPageComponent {
               this.spinner.hide();
             }else{
               this.spinner.hide();
-                this.router.navigate(['/content/slider']);
+                this.router.navigate(['/content/landing']);
             }
           },
           error => {
@@ -67,18 +67,6 @@ export class LoginPageComponent {
               this.spinner.hide();
             }
           });
-
-    // this.authService.login(this.loginForm.value.username, this.loginForm.value.password)
-    //   .then((res) => {
-    //     this.spinner.hide();
-    //     this.router.navigate(['/content/slider']);
-    //   })
-    //   .catch((err) => {
-    //     this.isLoginFailed = true;
-    //     this.spinner.hide();
-    //     console.log('error: ' + err)
-    //     }
-    //   );
   }
 
 }

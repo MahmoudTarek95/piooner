@@ -1,4 +1,8 @@
 <input type="file" class="form-control-file" (input)="onUploadFile($event)" multiple="" accept="image/*" >
+<div *ngIf="sizeValidationMobile" class="help-block mt-1 text-danger"> <i
+  class="ft-alert-circle align-middle"></i> Maximum image size is 50Kb </div>
+  <div *ngIf="sizeValidationPc" class="help-block mt-1 text-danger"> <i
+    class="ft-alert-circle align-middle"></i> Maximum image size is 200Kb </div>
 
 <div class="preview-area pt-2" *ngIf="!isMultiable && imageSrc">
   <div class="row p-0 m-0">

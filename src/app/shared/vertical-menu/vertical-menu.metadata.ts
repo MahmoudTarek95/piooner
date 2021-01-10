@@ -6,6 +6,7 @@ export interface RouteInfo {
     class: string;
     badge?: string;
     badgeClass?: string;
+    hasPermission?:boolean
     isExternalLink: boolean;
     submenu : RouteInfo[];
 }

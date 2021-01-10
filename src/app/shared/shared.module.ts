@@ -12,11 +12,14 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { QuillModule } from 'ngx-quill';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AutocompleteModule } from './components/autocomplete/autocomplete.module';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 
 //COMPONENTS
+import { DatatableSharedComponent } from './components/datatable-shared/datatable-shared.component';
+import { UploaderComponent } from './components/uploader/uploader.component';
 import { FooterComponent } from "./footer/footer.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { HorizontalMenuComponent } from './horizontal-menu/horizontal-menu.component';
@@ -34,8 +37,7 @@ import { TopMenuDirective } from './directives/topmenu.directive';
 import { TopMenuLinkDirective } from './directives/topmenu-link.directive';
 import { TopMenuDropdownDirective } from './directives/topmenu-dropdown.directive';
 import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle.directive';
-import { DatatableSharedComponent } from './components/datatable-shared/datatable-shared.component';
-import { UploaderComponent } from './components/uploader/uploader.component';
+
 
 
 @NgModule({
@@ -57,7 +59,8 @@ import { UploaderComponent } from './components/uploader/uploader.component';
         NgxDatatableModule,
         QuillModule,
         NgSelectModule,
-        UiSwitchModule
+        UiSwitchModule,
+        ToastrModule
     ],
     imports: [
         RouterModule,
@@ -74,7 +77,8 @@ import { UploaderComponent } from './components/uploader/uploader.component';
         NgxDatatableModule,
         QuillModule.forRoot(),
         NgSelectModule,
-        UiSwitchModule
+        UiSwitchModule,
+        ToastrModule.forRoot()
     ],
     declarations: [
         FooterComponent,
