@@ -27,6 +27,9 @@ export class AddEditBlogComponent implements OnInit {
   tabs = [1, 2, 3, 4, 5];
   counter = this.tabs.length + 1;
 
+  editorEnCounter = 0
+  editorArCounter = 0
+
   formGroup:FormGroup
   selectedTag;
   enable = false
@@ -63,6 +66,13 @@ export class AddEditBlogComponent implements OnInit {
         this.setBlogData(this.blogDetails)
       }
     })
+  }
+  onContentChangedAr(e){
+    this.editorArCounter = e.text.length -1
+  }
+  onContentChangedEn(e){
+    this.editorEnCounter = e.text.length -1
+
   }
 
   setBlogData(blogData){

@@ -27,6 +27,9 @@ export class AddEditProjectComponent implements OnInit {
   tabs = [1, 2, 3, 4, 5, 6];
   counter = this.tabs.length + 1;
 
+  editorEnCounter = 0
+  editorArCounter = 0
+
   formGroup:FormGroup
   projectServiceControlsList
   selectedDeveloper;
@@ -102,6 +105,12 @@ export class AddEditProjectComponent implements OnInit {
         this.setProjectData(this.projectDetails)
       }
     })
+  }
+  onContentChangedEn(e){
+    this.editorEnCounter = e.text.length -1
+  }
+  onContentChangedAr(e){
+    this.editorArCounter = e.text.length -1
   }
 
   setProjectData(projectData){

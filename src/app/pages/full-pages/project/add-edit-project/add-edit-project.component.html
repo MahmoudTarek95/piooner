@@ -13,6 +13,7 @@
     <div id="kick-start" class="card">
       <div class="card-header">
         <h4 class="card-title">{{isEditingMode ? 'Edit Project' : 'Add New Project'}}</h4>
+        <h6 class="mt-2 mb-0">All fields are required, You must fill all fields to save your data.</h6>
       </div>
       <div class="card-content">
         <div class="card-body">
@@ -83,9 +84,10 @@
                         <div id="full-wrapper">
                           <div id="full-container">
                             <label for="">Description</label>
-                            <quill-editor formControlName="descriptionEn" (onEditorCreated)="setFocus($event)"></quill-editor>
+                            <quill-editor formControlName="descriptionEn" (onContentChanged)="onContentChangedEn($event)" (onEditorCreated)="setFocus($event)"></quill-editor>
                             <div *ngIf="formGroup.controls.descriptionEn.errors?.required && formGroup.controls.descriptionEn.touched" class="help-block mt-1 text-danger"> <i
                               class="ft-alert-circle align-middle"></i> This field is required </div>
+                            <p class="counter">Number of characters : {{editorEnCounter}}</p>
                           </div>
                         </div>
                       </div>
@@ -157,9 +159,10 @@
                         <div id="full-wrapper">
                           <div id="full-container">
                             <label for="">Description</label>
-                            <quill-editor formControlName="descriptionAr" (onEditorCreated)="setFocus($event)"></quill-editor>
+                            <quill-editor formControlName="descriptionAr" (onContentChanged)="onContentChangedAr($event)" (onEditorCreated)="setFocus($event)"></quill-editor>
                             <div *ngIf="formGroup.controls.descriptionAr.errors?.required && formGroup.controls.descriptionAr.touched" class="help-block mt-1 text-danger"> <i
                               class="ft-alert-circle align-middle"></i> This field is required </div>
+                              <p class="counter">Number of characters : {{editorArCounter}}</p>
                           </div>
                         </div>
                       </div>

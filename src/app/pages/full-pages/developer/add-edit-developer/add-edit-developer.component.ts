@@ -27,6 +27,9 @@ export class AddEditDeveloperComponent implements OnInit {
   tabs = [1, 2, 3, 4, 5];
   counter = this.tabs.length + 1;
 
+  editorEnCounter = 0
+  editorArCounter = 0
+
   formGroup:FormGroup
   selectedTag;
   enable = false
@@ -57,6 +60,13 @@ export class AddEditDeveloperComponent implements OnInit {
         this.setDeveloperData(this.developerDetails)
       }
     })
+  }
+
+  onContentChangedEn(e){
+    this.editorEnCounter = e.text.length -1
+  }
+  onContentChangedAr(e){
+    this.editorArCounter = e.text.length -1
   }
 
   setDeveloperData(developerData){
