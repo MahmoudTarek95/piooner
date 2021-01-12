@@ -79,7 +79,7 @@
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Pc</label>
                         <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
-                          Image dimensions is: 1800*1200
+                          Image dimensions is: 1500*800
                         </ngb-alert>
                         <p></p>
                         <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
@@ -87,6 +87,9 @@
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Mobile</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 360*480
+                        </ngb-alert>
                         <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                         <app-uploader [type]="'imageMobile'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url"[formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                       </div>

@@ -67,12 +67,21 @@ export class AddEditBlogComponent implements OnInit {
       }
     })
   }
-  onContentChangedAr(e){
-    this.editorArCounter = e.text.length -1
-  }
   onContentChangedEn(e){
-    this.editorEnCounter = e.text.length -1
-
+    let text = e.text.split(/\s+/)
+    text.splice(text.length -1,1)
+    if(text[0] == ''){
+      text = []
+    }
+    this.editorEnCounter = text.length
+  }
+  onContentChangedAr(e){
+    let text = e.text.split(/\s+/)
+    text.splice(text.length -1,1)
+    if(text[0] == ''){
+      text = []
+    }
+    this.editorArCounter = text.length
   }
 
   setBlogData(blogData){

@@ -11,6 +11,8 @@ import { NGXToastrService } from 'app/shared/services/toastr.service';
 export class VideoComponent implements OnInit {
   videoForm:FormGroup;
   videoDetails
+  editorEnCounter = 0
+  editorArCounter = 0
   constructor(private fb:FormBuilder,private formService:FormService,private toasterService:NGXToastrService) {
     this.videoForm = fb.group({
       titleEn: ['',[Validators.required]],
@@ -21,7 +23,7 @@ export class VideoComponent implements OnInit {
       imagePc:[''],
       imageMobile: [''],
       videoLink: [''],
-      isVideo:[true]
+      isVideo:[false]
     })
   }
 
@@ -60,6 +62,23 @@ export class VideoComponent implements OnInit {
     })
   }
 
+  onContentChangedEn(e){
+    let text = e.text.split(/\s+/)
+    text.splice(text.length -1,1)
+    if(text[0] == ''){
+      text = []
+    }
+    this.editorEnCounter = text.length
+  }
+  onContentChangedAr(e){
+    let text = e.text.split(/\s+/)
+    text.splice(text.length -1,1)
+    if(text[0] == ''){
+      text = []
+    }
+    this.editorArCounter = text.length
+  }
+
 
   //events starts
   setFocus($event) {
@@ -85,8 +104,8 @@ export class VideoComponent implements OnInit {
       titleAr:this.videoForm.controls['titleAr'].value,
       descriptionEn:this.videoForm.controls['descriptionEn'].value,
       descriptionAr:this.videoForm.controls['descriptionAr'].value,
-      pcImage:this.videoForm.controls['pcImage']?.value.id ? this.videoForm.controls['pcImage'].value.id : '',
-      mobileImage:this.videoForm.controls['mobileImage']?.value.id ? this.videoForm.controls['mobileImage'].value.id : '',
+      pcImage:this.videoForm.controls['imagePc'].value.id ? this.videoForm.controls['imagePc'].value.id : '',
+      mobileImage:this.videoForm.controls['imageMobile'].value.id ? this.videoForm.controls['imageMobile'].value.id : '',
       link:this.videoForm.controls['link'].value,
       videoLink:this.videoForm.controls['videoLink']?.value ? this.videoForm.controls['videoLink'].value : '',
       isVideo:this.videoForm.controls['isVideo'].value,

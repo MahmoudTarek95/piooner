@@ -59,7 +59,7 @@
                             <quill-editor formControlName="descriptionEn" (onContentChanged)="onContentChangedEn($event)"></quill-editor>
                             <div *ngIf="formGroup.controls.descriptionEn.errors?.required && formGroup.controls.descriptionEn.touched" class="help-block mt-1 text-danger"> <i
                               class="ft-alert-circle align-middle"></i> This field is required </div>
-                              <p class="counter">Number of characters : {{editorEnCounter}}</p>
+                              <p class="counter">Number of Words : {{editorEnCounter}}</p>
                           </div>
                         </div>
                       </div>
@@ -105,7 +105,7 @@
                             <quill-editor formControlName="descriptionAr" (onContentChanged)="onContentChangedAr($event)"></quill-editor>
                             <div *ngIf="formGroup.controls.descriptionAr.errors?.required && formGroup.controls.descriptionAr.touched" class="help-block mt-1 text-danger"> <i
                               class="ft-alert-circle align-middle"></i> This field is required </div>
-                              <p class="counter">Number of characters : {{editorArCounter}}</p>
+                              <p class="counter">Number of Words : {{editorArCounter}}</p>
                           </div>
                         </div>
                       </div>
@@ -157,11 +157,17 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Pc</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 430*180
+                        </ngb-alert>
                         <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
                         <app-uploader  [type]="'imagePc'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Mobile</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 335*190
+                        </ngb-alert>
                         <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                         <app-uploader [type]="'imageMobile'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url"[formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                       </div>
@@ -174,11 +180,17 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6 border-right">
                         <label for="">Upload Image Pc</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 960*650
+                        </ngb-alert>
                         <app-uploader  [type]="'galleryPc'" [images]="formGroup.controls.galleryPc.value" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageGalleryPc($event)" [isMultiable]="true"></app-uploader>
                         <app-uploader  [type]="'galleryPc'" [images]="formGroup.controls.galleryPc.value" [tempImages]="gallerPcImageMap" *ngIf="isEditingMode" [formGroup]="formGroup" (deletedGallery)="deleteGallery($event)" (uploadedImage)="doneUploadingImageGalleryPc($event)" [isMultiable]="true"></app-uploader>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Mobile</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 340*320
+                        </ngb-alert>
                         <app-uploader  [type]="'galleryMobile'" [images]="formGroup.controls.galleryMobile.value" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageGalleryMobile($event)" [isMultiable]="true"></app-uploader>
                         <app-uploader  [type]="'galleryMobile'" [images]="formGroup.controls.galleryMobile.value" [tempImages]="galleryMobileImageMap" *ngIf="isEditingMode" [formGroup]="formGroup" (deletedGallery)="deleteGallery($event)" (uploadedImage)="doneUploadingImageGalleryMobile($event)" [isMultiable]="true"></app-uploader>
                       </div>
@@ -191,10 +203,16 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Pc</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 1500*800
+                        </ngb-alert>
                         <app-uploader  [type]="'bannerPc'" [imageSrc]="formGroup.controls.bannerPc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePcBanner($event)" [isMultiable]="false"></app-uploader>
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Mobile</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 360*480
+                        </ngb-alert>
                         <app-uploader [type]="'bannerMobile'" [imageSrc]="formGroup.controls.bannerMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobileBanner($event)" [isMultiable]="false"></app-uploader>
                       </div>
                     </div>

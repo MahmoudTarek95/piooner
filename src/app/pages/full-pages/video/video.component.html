@@ -57,11 +57,16 @@
               <div class="form-row" *ngIf="videoForm.controls.isVideo.value == false">
                 <div class="form-group col-lg-6">
                   <label for="">Upload Image Pc</label>
+                  <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                    Image dimensions is: 535*250
+                  </ngb-alert>
                    <app-uploader  [type]="'imagePc'"  [imageSrc]="videoForm.controls.imagePc.value.url" [formGroup]="videoForm" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="">Upload Image Mobile</label>
-
+                  <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                    Image dimensions is: 325*150
+                  </ngb-alert>
                   <app-uploader [type]="'imageMobile'"  [imageSrc]="videoForm.controls.imageMobile.value.url"[formGroup]="videoForm" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                 </div>
               </div>
@@ -70,9 +75,10 @@
                   <div id="full-wrapper">
                     <div id="full-container">
                       <label for="">Description En</label>
-                      <quill-editor formControlName="descriptionEn" (onEditorCreated)="setFocus($event)"></quill-editor>
+                      <quill-editor formControlName="descriptionEn"></quill-editor>
                       <div *ngIf="videoForm.controls.descriptionEn.errors?.required && videoForm.controls.descriptionEn.touched" class="help-block mt-1 text-danger"> <i
                         class="ft-alert-circle align-middle"></i> This field is required </div>
+                        <p class="counter">Number of Words : {{editorEnCounter}}</p>
                     </div>
                   </div>
                 </div>
@@ -82,9 +88,10 @@
                   <div id="full-wrapper">
                     <div id="full-container">
                       <label for="">Description Ar</label>
-                      <quill-editor formControlName="descriptionAr" (onEditorCreated)="setFocus($event)"></quill-editor>
+                      <quill-editor formControlName="descriptionAr"></quill-editor>
                       <div *ngIf="videoForm.controls.descriptionAr.errors?.required && videoForm.controls.descriptionAr.touched" class="help-block mt-1 text-danger"> <i
                         class="ft-alert-circle align-middle"></i> This field is required </div>
+                        <p class="counter">Number of Words : {{editorArCounter}}</p>
                     </div>
                   </div>
                 </div>
