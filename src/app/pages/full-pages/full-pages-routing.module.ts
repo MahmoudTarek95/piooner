@@ -8,6 +8,7 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { AddEditCitesComponent } from './cites/add-edit-cites/add-edit-cites.component';
 import { CitesComponent } from './cites/cites.component';
 import { ContactUsFormComponent } from './contact-us-form/contact-us-form.component';
+import { ViewContactUsFormComponent } from './contact-us-form/view-contact-us-form/view-contact-us-form.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { AddEditDeveloperComponent } from './developer/add-edit-developer/add-edit-developer.component';
 import { DeveloperComponent } from './developer/developer.component';
@@ -25,6 +26,7 @@ import { SocialMediaComponent } from './social-media/social-media.component';
 import { AddEditTagComponent } from './tags/add-edit-tag/add-edit-tag.component';
 import { TagsComponent } from './tags/tags.component';
 import { AddUserRoleComponent } from './user-managment/add-user-role/add-user-role.component';
+import { ChangePasswordComponent } from './user-managment/change-password/change-password.component';
 import { RegisterComponent } from './user-managment/register/register.component';
 import { UserManagmentComponent } from './user-managment/user-managment.component';
 import { VideoComponent } from './video/video.component';
@@ -123,6 +125,10 @@ const routes: Routes = [
         component:ContactUsFormComponent
       },
       {
+        path:'contactUsForm/view/:id',
+        component:ViewContactUsFormComponent
+      },
+      {
         path:'logo',
         component:SiteLogoComponent
       },
@@ -199,6 +205,11 @@ const routes: Routes = [
       {
         path:'userManagment',
         component:UserManagmentComponent,
+        canActivate:[AuthRoleGuard]
+      },
+      {
+        path:'userManagment/changePass/:id',
+        component:ChangePasswordComponent,
         canActivate:[AuthRoleGuard]
       },
       {

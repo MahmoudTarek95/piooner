@@ -37,17 +37,29 @@
               <div class="form-row">
                 <div class="form-group col-lg-6">
                   <label for="">Password</label>
-                  <input [ngClass]="{ 'is-invalid': registerForm.controls.password.errors?.required && registerForm.controls.password.touched}" type="password" formControlName="password"  class="form-control" >
-                  <div *ngIf="registerForm.controls.password.errors?.required && registerForm.controls.password.touched" class="help-block mt-1 text-danger"> <i
-                    class="ft-alert-circle align-middle"></i> This field is required </div>
+                  <fieldset class="form-group position-relative has-icon-right">
+                    <input  [ngClass]="{ 'is-invalid': registerForm.controls.password.errors?.required && registerForm.controls.password.touched}"
+                    [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="iconLeft2">
+                    <div class="form-control-position" (click)="showPassword = !showPassword">
+                      <i class="ft-eye"></i>
+                    </div>
+                    <div *ngIf="registerForm.controls.password.errors?.required && registerForm.controls.password.touched" class="help-block mt-1 text-danger"> <i
+                      class="ft-alert-circle align-middle"></i> This field is required </div>
+                  </fieldset>
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="">Confirm Password</label>
-                  <input [ngClass]="{ 'is-invalid': registerForm.controls.confirmPassword.errors?.mustMatch}" type="password" formControlName="confirmPassword"  class="form-control" >
-                  <div *ngIf="(registerForm.controls.confirmPassword.errors?.mustMatch)"
-                  class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Passwords must
-                  match
-                </div>
+                  <fieldset class="form-group position-relative has-icon-right">
+                    <input  [ngClass]="{ 'is-invalid': registerForm.controls.confirmPassword.errors?.mustMatch}"
+                    [type]="showPasswordConfirm ? 'text' : 'password'" formControlName="confirmPassword" class="form-control" id="iconLeft3">
+                    <div class="form-control-position" (click)="showPasswordConfirm = !showPasswordConfirm">
+                      <i class="ft-eye"></i>
+                    </div>
+                    <div *ngIf="(registerForm.controls.confirmPassword.errors?.mustMatch)"
+                    class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Passwords must
+                    match
+                  </div>
+                  </fieldset>
                 </div>
               </div>
             </form>

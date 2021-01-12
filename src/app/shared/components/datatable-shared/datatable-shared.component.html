@@ -40,6 +40,7 @@
       <ng-template ngx-datatable-cell-template let-row="row">
         <i (click)="deleteRow(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" *ngIf=" type != 'social' && type != 'about'"></i>
         <i (click)="editRow(row.id)" class="ft-edit text-primary cursor-pointer font-size" *ngIf="type != 'userManagment'"></i>
+        <i (click)="change(row.id)" class="ft-edit text-primary cursor-pointer font-size" *ngIf="type == 'userManagment'"></i>
       </ng-template>
     </ngx-datatable-column>
 </ngx-datatable>

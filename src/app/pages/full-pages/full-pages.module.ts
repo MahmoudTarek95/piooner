@@ -30,11 +30,13 @@ import { SiteLogoComponent } from './site-logo/site-logo.component';
 import { ContactUsFormComponent } from './contact-us-form/contact-us-form.component';
 import { TagsComponent } from './tags/tags.component';
 import { AddEditTagComponent } from './tags/add-edit-tag/add-edit-tag.component';
+import { ViewContactUsFormComponent } from './contact-us-form/view-contact-us-form/view-contact-us-form.component';
+import { ChangePasswordComponent } from './user-managment/change-password/change-password.component';
 
 
 
 @NgModule({
-  declarations: [SliderComponent, AddEditSliderComponent, BlogsComponent, AddEditBlogComponent, DeveloperComponent, AddEditDeveloperComponent, ProjectComponent, AddEditProjectComponent, HomeComponent, CitesComponent, AddEditCitesComponent, ContactUsComponent, SocialMediaComponent, EditSocialMediaComponent, VideoComponent, AboutUsComponent, EditAboutUsComponent, FooterLinksComponent, AddEditFooterLinksComponent, UserManagmentComponent, RegisterComponent, AddUserRoleComponent, HomeNavbarIconComponent, SiteLogoComponent, ContactUsFormComponent, TagsComponent, AddEditTagComponent],
+  declarations: [SliderComponent, AddEditSliderComponent, BlogsComponent, AddEditBlogComponent, DeveloperComponent, AddEditDeveloperComponent, ProjectComponent, AddEditProjectComponent, HomeComponent, CitesComponent, AddEditCitesComponent, ContactUsComponent, SocialMediaComponent, EditSocialMediaComponent, VideoComponent, AboutUsComponent, EditAboutUsComponent, FooterLinksComponent, AddEditFooterLinksComponent, UserManagmentComponent, RegisterComponent, AddUserRoleComponent, HomeNavbarIconComponent, SiteLogoComponent, ContactUsFormComponent, TagsComponent, AddEditTagComponent, ViewContactUsFormComponent, ChangePasswordComponent],
   imports: [
     CommonModule,
     FormsModule,

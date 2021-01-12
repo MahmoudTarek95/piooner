@@ -107,6 +107,9 @@ export class AddEditProjectComponent implements OnInit {
     })
   }
   onContentChangedEn(e){
+    let text = e.text.replace(/(?:\r\n|\r|\n)/g, '');
+    console.log(text.split(' '))
+    console.log(text)
     this.editorEnCounter = e.text.length -1
   }
   onContentChangedAr(e){

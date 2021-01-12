@@ -9,6 +9,7 @@ import {
 } from '@swimlane/ngx-datatable';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-us-form',
@@ -30,7 +31,7 @@ export class ContactUsFormComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private formService:FormService, private toasterService:NGXToastrService, private datePipe:DatePipe) {
+  constructor(private formService:FormService, private toasterService:NGXToastrService, private datePipe:DatePipe,private router:Router) {
 
     this.columns = [
       {
@@ -47,12 +48,7 @@ export class ContactUsFormComponent implements OnInit {
         name:'Phone',
         prop:'phone',
         width:100
-      },
-      {
-        name:'Message',
-        prop:'message',
-        width:200
-      },
+      }
     ]
   }
 
@@ -102,6 +98,9 @@ export class ContactUsFormComponent implements OnInit {
     },error => {
       this.toasterService.TypeError()
     })
+  }
+  viewItem(id){
+    this.router.navigate(['content/contactUsForm/view/' + id])
   }
   filterUpdate(event) {
     const val = event.target.value.toLowerCase();

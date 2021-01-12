@@ -42,6 +42,7 @@
           <ngx-datatable-column name="Actions" prop="actions" [width]="70 ">
             <ng-template ngx-datatable-cell-template let-row="row">
               <i (click)="deleteRow(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" ></i>
+              <i (click)="viewItem(row.id)" class="ft-eye text-primary cursor-pointer font-size mr-2" ></i>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

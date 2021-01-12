@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="content-header col-lg-6">Contact Details</div>
+    <button (click)="back()" class="btn btn-danger col-lg-2">Cancel</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <!-- Kick start -->
+    <div id="kick-start" class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <ng-container>
+            <h5>Name :</h5>
+            <p *ngIf="contactData">{{contactData.name}}</p>
+            <h5>Email :</h5>
+            <p *ngIf="contactData">{{contactData.email}}</p>
+            <h5>Phone :</h5>
+            <p *ngIf="contactData">{{contactData.phone}}</p>
+            <h5>Date :</h5>
+            <p *ngIf="contactData">{{contactData.modifiedDate | date:'short'}}</p>
+            <h5>Message :</h5>
+            <p *ngIf="contactData">{{contactData.message}}</p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <!--/ Kick start -->
+  </div>
+</div>

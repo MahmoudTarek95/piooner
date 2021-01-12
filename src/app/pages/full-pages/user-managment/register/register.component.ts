@@ -13,6 +13,8 @@ import { NGXToastrService } from 'app/shared/services/toastr.service';
 export class RegisterComponent implements OnInit {
   registerForm:FormGroup
   contactData = {}
+  showPassword = false
+  showPasswordConfirm = false
   constructor(private fb:FormBuilder,private formService:FormService, private router:Router,private toasterService:NGXToastrService) {
     this.registerForm = fb.group({
       userName: ['', Validators.required],

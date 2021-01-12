@@ -94,6 +94,9 @@ export class DatatableSharedComponent implements OnInit {
         break;
     }
   }
+  change(id){
+    this.router.navigate(['content/userManagment/changePass/' + id])
+  }
   parseId(id){
     return parseInt(id)
   }
