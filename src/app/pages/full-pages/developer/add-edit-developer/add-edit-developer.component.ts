@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -34,7 +34,7 @@ export class AddEditDeveloperComponent implements OnInit {
   selectedTag;
   enable = false
   tags = []
-  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.formGroup = fb.group({
       nameEn:['',[Validators.required]],
       metatagTypeEn:['',[Validators.required]],
@@ -57,6 +57,7 @@ export class AddEditDeveloperComponent implements OnInit {
     this.formService.get('Developer/GetAdminDeveloper/' + id).subscribe((res:any) => {
       if(res){
         this.developerDetails = res.data
+        this.cd.markForCheck()
         this.setDeveloperData(this.developerDetails)
       }
     })

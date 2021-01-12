@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
 import { FormService } from 'app/shared/services/form.service';
@@ -22,7 +22,7 @@ export class BlogsComponent implements OnInit {
   public SelectionType = SelectionType;
   private tempData = [];
   @ViewChild(DatatableComponent) table: DatatableComponent;
-  constructor(private formService:FormService, private toasterService:NGXToastrService,private router:Router) {
+  constructor(private formService:FormService, private toasterService:NGXToastrService,private router:Router,private cd:ChangeDetectorRef) {
     this.columns = [
       {
         name:'Name',
@@ -89,6 +89,7 @@ export class BlogsComponent implements OnInit {
   getBlogsList(){
     this.formService.get('Blog/BlogAdminList').subscribe((res:any) => {
       this.rows = res.data
+      this.cd.markForCheck()
       this.tempData = [...this.rows]
     })
   }

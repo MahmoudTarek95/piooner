@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
 
@@ -13,7 +13,7 @@ export class FooterLinksComponent implements OnInit {
   footerList
   columns
 
-  constructor(private formService:FormService,private toasterService:NGXToastrService) {
+  constructor(private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.columns = [
       {
         name:'Title',
@@ -44,6 +44,7 @@ export class FooterLinksComponent implements OnInit {
   getFooterList(){
     this.formService.get('Home/ListAdminImportantLink').subscribe((res:any) => {
       this.footerList = res.data
+      this.cd.markForCheck()
     })
   }
 

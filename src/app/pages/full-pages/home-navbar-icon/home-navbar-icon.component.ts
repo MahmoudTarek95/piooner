@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
 
@@ -24,7 +24,7 @@ export class HomeNavbarIconComponent implements OnInit {
   ]
   navbarList
 
-  constructor(private formSerive:FormService, private toastrSerivce:NGXToastrService) {
+  constructor(private formSerive:FormService, private toastrSerivce:NGXToastrService,private cd:ChangeDetectorRef) {
     this.getNavbarList()
    }
 
@@ -33,6 +33,7 @@ export class HomeNavbarIconComponent implements OnInit {
   getNavbarList(){
     this.formSerive.get('Home/AdminNavbar').subscribe((res:any) => {
       this.rows = res.data
+      this.cd.markForCheck()
     })
   }
 

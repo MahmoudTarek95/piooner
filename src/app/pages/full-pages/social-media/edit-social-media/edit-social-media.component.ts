@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from 'app/shared/services/form.service';
@@ -13,7 +13,7 @@ export class EditSocialMediaComponent implements OnInit {
   socialForm:FormGroup;
   socialId
   socialDetails
-  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.socialForm = fb.group({
       link:['',[Validators.required]],
       name:['',[Validators.required]]
@@ -23,6 +23,7 @@ export class EditSocialMediaComponent implements OnInit {
   getSocialDetails(id){
     this.formService.get('Home/GetSocialMedia/' + id).subscribe((res:any) => {
       this.socialDetails = res.data
+      this.cd.markForCheck()
       this.setSocialData(this.socialDetails)
     })
   }

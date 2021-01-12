@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class AboutUsComponent implements OnInit {
   aboutList
   columns
 
-  constructor(private formService:FormService) {
+  constructor(private formService:FormService,private cd:ChangeDetectorRef) {
     this.columns = [
       {
         name:'Title',
@@ -34,6 +34,7 @@ export class AboutUsComponent implements OnInit {
   getAboutList(){
     this.formService.get('Home/ListAdminAboutUs').subscribe((res:any) => {
       this.aboutList = res.data
+      this.cd.markForCheck()
     })
   }
 

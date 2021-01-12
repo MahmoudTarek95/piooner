@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormService } from 'app/shared/services/form.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
@@ -11,7 +11,7 @@ import { NGXToastrService } from 'app/shared/services/toastr.service';
 export class ContactUsComponent implements OnInit {
   contactForm:FormGroup
   contactData = {}
-  constructor(private fb:FormBuilder,private formService:FormService,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder,private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.contactForm = fb.group({
       mobileNumber: ['',[Validators.required]],
       hotline:['',[Validators.required]],
@@ -35,6 +35,7 @@ export class ContactUsComponent implements OnInit {
     this.formService.get('Home/GetAdminHomeContact').subscribe((res:any) => {
       if(res){
         this.contactData = res.data
+        this.cd.markForCheck()
         this.setContactData(this.contactData)
       }
     })

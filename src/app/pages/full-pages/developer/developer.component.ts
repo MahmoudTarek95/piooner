@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
 
@@ -11,7 +11,7 @@ export class DeveloperComponent implements OnInit {
   developersList
   columns
 
-  constructor(private formService:FormService,private toasterService:NGXToastrService) {
+  constructor(private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.columns = [
       {
         name:'Name',
@@ -36,6 +36,7 @@ export class DeveloperComponent implements OnInit {
   getDevelopersList(){
     this.formService.get('Developer/ListDevelopers').subscribe((res:any) => {
       this.developersList = res.data
+      this.cd.markForCheck()
     })
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +14,7 @@ export class SiteLogoComponent implements OnInit {
   logoDetails = {}
   formGroup
 
-  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
 
     this.formGroup = fb.group({
       icon: ['',[Validators.required]],
@@ -54,6 +54,7 @@ export class SiteLogoComponent implements OnInit {
     this.formService.get('Home/GetLogoAdmin').subscribe((res:any) => {
       if(res){
         this.logoDetails = res.data
+        this.cd.markForCheck()
         this.setSliderData(this.logoDetails)
       }
     })

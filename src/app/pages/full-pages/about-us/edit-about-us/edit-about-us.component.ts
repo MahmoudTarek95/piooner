@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormService } from 'app/shared/services/form.service';
@@ -14,7 +14,7 @@ export class EditAboutUsComponent implements OnInit {
   aboutForm:FormGroup;
   aboutId
   aboutDetails
-  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.aboutForm = fb.group({
       titleEN:['',[Validators.required]],
       titleAr:['',[Validators.required]],
@@ -26,6 +26,7 @@ export class EditAboutUsComponent implements OnInit {
   getAboutDetails(id){
     this.formService.get('Home/GetAboutUs/' + id).subscribe((res:any) => {
       this.aboutDetails = res.data
+      this.cd.markForCheck()
       this.setAboutData(this.aboutDetails)
     })
   }

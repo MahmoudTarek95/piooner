@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +23,7 @@ export class AddEditTagComponent implements OnInit {
 
   formGroup
 
-  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
 
     this.formGroup = fb.group({
       nameEn: ['',[Validators.required]],
@@ -50,6 +50,7 @@ export class AddEditTagComponent implements OnInit {
     this.formService.get('Tag/GetTag/' +id).subscribe((res:any) => {
       if(res){
         this.tagDetails = res.data
+        this.cd.markForCheck()
         this.setTagData(this.tagDetails)
       }
     })

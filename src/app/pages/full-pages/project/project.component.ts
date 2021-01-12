@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
 import { FormService } from 'app/shared/services/form.service';
@@ -24,7 +24,7 @@ export class ProjectComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private formService:FormService,private toasterService:NGXToastrService,private router:Router) {
+  constructor(private formService:FormService,private toasterService:NGXToastrService,private router:Router,private cd:ChangeDetectorRef) {
     this.columns = [
       {
         name:'Name',
@@ -90,6 +90,7 @@ export class ProjectComponent implements OnInit {
   getProjectsList(){
     this.formService.get('Project/ProjectAdminList').subscribe((res:any) => {
       this.rows = res.data
+      this.cd.markForCheck()
       this.tempData = [...this.rows]
     })
   }

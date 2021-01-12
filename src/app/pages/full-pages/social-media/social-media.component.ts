@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
 
 @Component({
@@ -12,7 +11,7 @@ export class SocialMediaComponent implements OnInit {
   socialList
   columns
 
-  constructor(private formService:FormService) {
+  constructor(private formService:FormService,private cd:ChangeDetectorRef) {
     this.columns = [
       {
         name:'Name',
@@ -35,6 +34,7 @@ export class SocialMediaComponent implements OnInit {
   getSocialList(){
     this.formService.get('Home/GetAdminSocailMedia').subscribe((res:any) => {
       this.socialList = res.data
+      this.cd.markForCheck()
     })
   }
 

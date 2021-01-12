@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -40,7 +40,7 @@ export class AddEditProjectComponent implements OnInit {
   cites = []
   enable = false
   developers = []
-  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.formGroup = fb.group({
       nameEn:['',[Validators.required]],
       metatagTypeEn:['',[Validators.required]],
@@ -101,6 +101,7 @@ export class AddEditProjectComponent implements OnInit {
     this.formService.get('Project/GetAdminProject/' + id).subscribe((res:any) => {
       if(res){
         this.projectDetails = res.data
+        this.cd.markForCheck()
         this.getRelatedProjects()
         this.setProjectData(this.projectDetails)
       }

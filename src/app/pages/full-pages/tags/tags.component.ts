@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColumnMode, SelectionType, DatatableComponent } from '@swimlane/ngx-datatable';
 import { FormService } from 'app/shared/services/form.service';
@@ -26,7 +26,7 @@ export class TagsComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private formService:FormService, private toasterService:NGXToastrService,private router:Router) {
+  constructor(private formService:FormService, private toasterService:NGXToastrService,private router:Router,private cd:ChangeDetectorRef) {
 
     this.columns = [
       {
@@ -44,6 +44,7 @@ export class TagsComponent implements OnInit {
   getTagsList(){
     this.subscription = this.formService.get('Tag/ListTag').subscribe((res:any) => {
       this.rows = res.data
+      this.cd.markForCheck()
       this.tempData = [...this.rows]
     })
   }

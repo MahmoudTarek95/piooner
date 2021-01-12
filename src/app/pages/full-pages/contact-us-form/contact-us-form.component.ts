@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
 import { saveAs } from 'file-saver';
@@ -31,7 +31,7 @@ export class ContactUsFormComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private formService:FormService, private toasterService:NGXToastrService, private datePipe:DatePipe,private router:Router) {
+  constructor(private formService:FormService, private toasterService:NGXToastrService, private datePipe:DatePipe,private router:Router,private cd:ChangeDetectorRef) {
 
     this.columns = [
       {
@@ -59,6 +59,7 @@ export class ContactUsFormComponent implements OnInit {
   getContactUsFormList(){
     this.subscription = this.formService.get('Home/ListContactUsForm').subscribe((res:any) => {
       this.rows = res.data
+      this.cd.markForCheck()
       this.tempData = [...this.rows]
     })
   }

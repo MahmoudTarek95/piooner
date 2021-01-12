@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
 
@@ -13,7 +13,7 @@ export class CitesComponent implements OnInit {
   citesList
   columns
 
-  constructor(private formService:FormService,private toasterService:NGXToastrService) {
+  constructor(private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.columns = [
       {
         name:'Name',
@@ -63,6 +63,7 @@ export class CitesComponent implements OnInit {
   getCitesList(){
     this.formService.get('City/Listcity').subscribe((res:any) => {
       this.citesList = res.data
+      this.cd.markForCheck()
     })
   }
 }

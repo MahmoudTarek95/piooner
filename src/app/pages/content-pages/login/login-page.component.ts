@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from 'app/shared/auth/auth.service';
+import { NGXToastrService } from 'app/shared/services/toastr.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { first } from 'rxjs/operators';
 
@@ -18,7 +19,7 @@ export class LoginPageComponent {
   isLoginFailed = false;
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required,Validators.email]),
     password: new FormControl('', [Validators.required]),
     rememberMe: new FormControl(true)
   });
@@ -26,7 +27,9 @@ export class LoginPageComponent {
 
   constructor(private router: Router, private authService: AuthService,
     private spinner: NgxSpinnerService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private cd:ChangeDetectorRef,
+    private toasterService:NGXToastrService) {
   }
 
   get lf() {
@@ -60,11 +63,22 @@ export class LoginPageComponent {
               this.spinner.hide();
                 this.router.navigate(['/content/landing']);
             }
+            this.cd.markForCheck()
           },
           error => {
             if(error.status == 401){
               this.isLoginFailed = true;
               this.spinner.hide();
+              this.cd.markForCheck()
+            }
+            else if(error.status == 400){
+              this.isLoginFailed = true;
+              this.toasterService.TypeWarning(error.error.error.message)
+              this.spinner.hide();
+              this.cd.markForCheck()
+            }
+            else{
+              this.toasterService.TypeErrorDynamic('Invaild email pattern')
             }
           });
   }

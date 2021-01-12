@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormService } from 'app/shared/services/form.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
@@ -13,7 +13,7 @@ export class VideoComponent implements OnInit {
   videoDetails
   editorEnCounter = 0
   editorArCounter = 0
-  constructor(private fb:FormBuilder,private formService:FormService,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder,private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.videoForm = fb.group({
       titleEn: ['',[Validators.required]],
       titleAr:['',[Validators.required]],
@@ -89,6 +89,7 @@ export class VideoComponent implements OnInit {
     this.formService.get('Home/GetAdminVideoSection').subscribe((res:any) => {
       if(res){
         this.videoDetails = res.data
+        this.cd.markForCheck()
         this.setVideoData(this.videoDetails)
       }
     })

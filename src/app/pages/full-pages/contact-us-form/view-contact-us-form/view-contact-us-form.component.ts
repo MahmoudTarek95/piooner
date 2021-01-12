@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from 'app/shared/services/form.service';
 
@@ -10,7 +10,7 @@ import { FormService } from 'app/shared/services/form.service';
 export class ViewContactUsFormComponent implements OnInit {
   contactId
   contactData
-  constructor(private activatedRoute:ActivatedRoute,private formService:FormService, private router:Router) { }
+  constructor(private activatedRoute:ActivatedRoute,private formService:FormService, private router:Router,private cd:ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.contactId = this.activatedRoute.snapshot.paramMap.get('id')
@@ -18,7 +18,8 @@ export class ViewContactUsFormComponent implements OnInit {
   }
   getContactData(id){
     this.formService.get('Home/ViewContactUs/' + id).subscribe((res:any) => {
-      this.contactData = res.data
+      this.contactData = res.data;
+      this.cd.markForCheck()
     })
   }
 

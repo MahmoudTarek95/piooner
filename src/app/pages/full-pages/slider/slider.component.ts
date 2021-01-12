@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ export class SliderComponent implements OnInit,OnDestroy {
   columns
   subscription:Subscription
 
-  constructor(private formService:FormService, private toasterService:NGXToastrService) {
+  constructor(private formService:FormService, private toasterService:NGXToastrService, private cd:ChangeDetectorRef) {
     this.columns = [
       {
         name:'Title',
@@ -45,6 +45,7 @@ export class SliderComponent implements OnInit,OnDestroy {
   getSliderList(){
     this.subscription = this.formService.get('Slider/ListSliders').subscribe((res:any) => {
       this.sliderList = res.data
+      this.cd.markForCheck()
       console.log(this.sliderList)
     })
   }

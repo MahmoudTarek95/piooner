@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -28,7 +28,7 @@ export class AddEditCitesComponent implements OnInit {
   properties
   formGroup
 
-  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
 
     this.formGroup = fb.group({
       nameEn: ['',[Validators.required]],
@@ -80,6 +80,7 @@ export class AddEditCitesComponent implements OnInit {
     this.formService.get('City/GetCity/' +id).subscribe((res:any) => {
       if(res){
         this.cityDetails = res.data
+        this.cd.markForCheck()
         this.setCityDetails(this.cityDetails)
       }
     })

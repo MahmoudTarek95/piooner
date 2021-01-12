@@ -28,4 +28,8 @@ export class NGXToastrService {
       this.toastrService.error('Internal Server Error');
     }
 
+    TypeErrorDynamic(message) {
+      this.toastrService.error(message);
+    }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +18,7 @@ export class AddEditFooterLinksComponent implements OnInit {
 
   formGroup
 
-  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
 
     this.formGroup = fb.group({
       tiltleEn: ['',[Validators.required]],
@@ -47,6 +47,7 @@ export class AddEditFooterLinksComponent implements OnInit {
     this.formService.get('Home/GetImportantLink/' +id).subscribe((res:any) => {
       if(res){
         this.sliderDetails = res.data
+        this.cd.markForCheck()
         this.setFooterData(this.sliderDetails)
       }
     })

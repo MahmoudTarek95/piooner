@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -34,7 +34,7 @@ export class AddEditBlogComponent implements OnInit {
   selectedTag;
   enable = false
   tags = []
-  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router, private toasterService:NGXToastrService) {
+  constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router, private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.formGroup = fb.group({
       nameEn:['',[Validators.required]],
       metatagTypeEn:['',[Validators.required]],
@@ -63,6 +63,7 @@ export class AddEditBlogComponent implements OnInit {
     this.formService.get('Blog/GetAdminBlog/' + id).subscribe((res:any) => {
       if(res){
         this.blogDetails = res.data
+        this.cd.markForCheck()
         this.setBlogData(this.blogDetails)
       }
     })
