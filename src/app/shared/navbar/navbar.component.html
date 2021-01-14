@@ -41,6 +41,12 @@
                   class="font-small-3">English</span></a>
             </div>
           </li> -->
+          <li class="dropdown nav-item pr-2" placement="bottom-left" display="static" >
+            <a (click)="viewNotification()" class="nav-link dropdown-toggle dropdown-notification p-0" id="drp-notification">
+              <i class="ft-bell font-medium-3"></i>
+              <span *ngIf="!(json.parse(localStorage.getItem('isMatched')))" class="notification badge badge-pill badge-danger"></span>
+            </a>
+          </li>
           <li class="dropdown nav-item mr-1" placement="bottom-left" display="static" ngbDropdown >
             <a class="nav-link dropdown-toggle user-dropdown d-flex align-items-end" id="dropdownBasic2"
               href="javascript:;" data-toggle="dropdown" ngbDropdownToggle>

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
-import { ROUTES } from 'app/shared/vertical-menu/vertical-menu-routes.config';
 
 @Component({
   selector: 'app-home',
@@ -10,16 +9,17 @@ import { ROUTES } from 'app/shared/vertical-menu/vertical-menu-routes.config';
 export class HomeComponent implements OnInit {
   itemList = []
 
-  constructor(private formService:FormService) {
-    this.itemList = ROUTES
-    // this.mapHomeItems()
+  constructor(private formService:FormService,private cd:ChangeDetectorRef) {
+    this.mapHomeItems()
   }
 
-  // mapHomeItems(){
-  //   this.formService.get('Home/Landpage').subscribe((res:any) => {
-  //     this.itemList = res.data
-  //   })
-  // }
+  mapHomeItems(){
+    this.formService.get('Home/Landpage').subscribe((res:any) => {
+      this.itemList = res.data
+      this.cd.markForCheck()
+      console.log(this.itemList)
+    })
+  }
 
   ngOnInit(): void {}
 

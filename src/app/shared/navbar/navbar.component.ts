@@ -1,20 +1,20 @@
-import { Component, Output, EventEmitter, OnDestroy, OnInit, AfterViewInit, ChangeDetectorRef, Inject, Renderer2, ViewChild, ElementRef, ViewChildren, QueryList, HostListener } from '@angular/core';
+import { Component, Output, EventEmitter, OnDestroy, OnInit, AfterViewInit, ChangeDetectorRef, Inject, Renderer2, ViewChild, ElementRef, ViewChildren, QueryList, HostListener, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LayoutService } from '../services/layout.service';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../services/config.service';
-import { DOCUMENT } from '@angular/common';
-import { CustomizerService } from '../services/customizer.service';
 import { FormControl } from '@angular/forms';
 import { LISTITEMS } from '../data/template-search';
 import { Router } from '@angular/router';
 import { AuthRolesService } from '../auth/auth-roles.service';
 import { AuthService } from '../auth/auth.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.scss"]
+  styleUrls: ["./navbar.component.scss"],
+  encapsulation:ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   currentLang = "en";
@@ -33,6 +33,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   public isCollapsed = true;
   layoutSub: Subscription;
   configSub: Subscription;
+  json =JSON
+  localStorage = localStorage
+
+  notify
+
 
   @ViewChild('search') searchElement: ElementRef;
   @ViewChildren('searchResults') searchResults: QueryList<any>;
@@ -53,7 +58,10 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private configService: ConfigService, private cdr: ChangeDetectorRef,
     private authRolesService:AuthRolesService,
-    private authService:AuthService) {
+    private authService:AuthService,
+    private notificationService:NotificationService) {
+    this.notificationService.sendNotification()
+
 
     const browserLang: string = translate.getBrowserLang();
     translate.use(browserLang.match(/en|es|pt|de/) ? browserLang : "en");
@@ -231,7 +239,10 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.authService.logout()
   }
 
-
+  viewNotification(){
+    this.localStorage.setItem('isMatched','true')
+    this.router.navigate(['content/contactUsForm'])
+  }
 
   toggleNotificationSidebar() {
     this.layoutService.toggleNotificationSidebar(true);

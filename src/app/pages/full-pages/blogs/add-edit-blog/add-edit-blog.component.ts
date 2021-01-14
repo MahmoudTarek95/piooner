@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,7 @@ import { NGXToastrService } from 'app/shared/services/toastr.service';
   templateUrl: './add-edit-blog.component.html',
   styleUrls: ['./add-edit-blog.component.scss']
 })
-export class AddEditBlogComponent implements OnInit {
+export class AddEditBlogComponent implements OnInit,OnChanges {
   blogDetails
   isEditingMode = false
   blogId;
@@ -32,8 +32,10 @@ export class AddEditBlogComponent implements OnInit {
 
   formGroup:FormGroup
   selectedTag;
+  selectedRelated;
   enable = false
   tags = []
+  related = []
   constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router, private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
     this.formGroup = fb.group({
       nameEn:['',[Validators.required]],
@@ -52,10 +54,13 @@ export class AddEditBlogComponent implements OnInit {
       phone:['',[Validators.required]],
       galleryPc:[[],[Validators.required]],
       galleryMobile:[[],[Validators.required]],
-      isRelatedBlog:[false,[Validators.required]],
+      isRelatedBlog:[false],
       bannerPc:['',[Validators.required]],
       bannerMobile:['',[Validators.required]],
       sortOrder:['',[Validators.required]],
+    })
+    this.formGroup.controls.isRelatedBlog.valueChanges.subscribe(res =>{
+      this.getRelated()
     })
   }
 
@@ -137,6 +142,12 @@ export class AddEditBlogComponent implements OnInit {
       galleryMobile:galleryMobile,
       isRelatedBlog:blogData.isRelatedBlog
     })
+    this.selectedRelated = blogData.relatedDropDown.map(res => {
+      return {
+        id:res.id,
+        name:res.nameEn
+      }
+    })
     this.selectedTag = blogData.tags
     this.gallerPcImageMap = galleryPc;
     this.galleryMobileImageMap = galleryMobile
@@ -180,12 +191,37 @@ export class AddEditBlogComponent implements OnInit {
       })
     })
   }
+  getRelated(){
+    if(this.formGroup.controls.isRelatedBlog.value == true){
+      this.formService.get('Blog/BlogsDropdown').subscribe((res:any) => {
+        this.related = res.data.map(r => {
+          return {
+            id:r.id,
+            name:r.nameEn
+          }
+        })
+      })
+    }else{
+      this.formService.get('Project/GetProjectDropdown').subscribe((res:any) => {
+        this.related = res.data.map(r => {
+          return {
+            id:r.id,
+            name:r.nameEn
+          }
+        })
+      })
+    }
+  }
 
   submitForm(){
     let galleryList = []
     let galleryPc = this.formGroup.controls['galleryPc'].value
     let galleryMobile = this.formGroup.controls['galleryMobile'].value
 
+    let relatedBlogsIds= []
+    if(this.selectedRelated){
+      relatedBlogsIds = this.selectedRelated.map(p => p.id)
+    }
     if(!this.isEditingMode){
       for (let i = 0; i < galleryPc.length; i++) {
         galleryList.push({
@@ -215,11 +251,16 @@ export class AddEditBlogComponent implements OnInit {
           pcImage:this.formGroup.controls['bannerPc'].value.id,
           mobileImage:this.formGroup.controls['bannerMobile'].value.id,
         },
-        tags: this.selectedTag.map(t => t.id)
+        tags: this.selectedTag.map(t => t.id),
+        related:relatedBlogsIds ? relatedBlogsIds.join() : ''
       }
       if (this.selectedTag.length < 3 || this.selectedTag.length > 5){
         this.toasterService.TypeWarning('Minimum of Tags is 3 and maximum is 5')
-      }else{
+      }
+      else if(this.selectedRelated &&  (this.selectedRelated.length < 3 || this.selectedRelated.length > 5)){
+        this.toasterService.TypeWarning('Minimum of Blogs is 3 and maximum is 5')
+      }
+      else{
         this.formService.post('Blog/AddBlog',blogObj).subscribe(res => {
           if(res){
             this.formGroup.reset()
@@ -262,12 +303,17 @@ export class AddEditBlogComponent implements OnInit {
           pcImage:this.formGroup.controls['bannerPc'].value.id,
           mobileImage:this.formGroup.controls['bannerMobile'].value.id
         },
-        tags: this.selectedTag.map(t => t.id)
+        tags: this.selectedTag.map(t => t.id),
+        related:relatedBlogsIds.join()
       }
 
       if (this.selectedTag.length < 3 || this.selectedTag.length > 5){
         this.toasterService.TypeWarning('Minimum of Tags is 3 and maximum is 5')
-      }else{
+      }
+      else if(this.selectedRelated.length < 3 || this.selectedRelated.length > 5){
+        this.toasterService.TypeWarning('Minimum of Related is 3 and maximum is 5')
+      }
+      else{
         this.formService.post('Blog/UpdateBlog',blogObj).subscribe(res => {
           if(res){
             this.formGroup.reset()
@@ -306,6 +352,10 @@ export class AddEditBlogComponent implements OnInit {
       this.getBlogDetails(this.blogId)
     }
     this.getTags()
+    this.getRelated()
+  }
+  ngOnChanges(change:SimpleChanges){
+    console.log(change)
   }
 
 }

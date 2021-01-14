@@ -117,6 +117,16 @@
                   <ng-template ngbNavContent>
                     <div class="form-row">
                       <div class="form-group col-lg-6">
+                        <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
+                          <input formControlName="isRelatedBlog" type="checkbox" class="custom-control-input" id="color-switch-6" >
+                          <label class="custom-control-label mr-1" for="color-switch-6">
+                            <span>Related Blog</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
                         <label for="">Phone</label>
                         <input [ngClass]="{ 'is-invalid': formGroup.controls.phone.errors?.required && formGroup.controls.phone.touched}" formControlName="phone" type="text" class="form-control" >
                         <div *ngIf="formGroup.controls.phone.errors?.required && formGroup.controls.phone.touched" class="help-block mt-1 text-danger"> <i
@@ -133,8 +143,7 @@
                       <div class="form-group col-lg-6">
                         <label for="">Tags</label>
                         <ng-select [ngClass]="{ 'is-invalid': !selectedTag}" [items]="tags" bindLabel="name" placeholder="Select Tags" [multiple]="true" [(ngModel)]="selectedTag" [ngModelOptions]="{standalone: true}"></ng-select>
-                        <div *ngIf="!selectedTag" class="help-block mt-1 text-danger"> <i
-                          class="ft-alert-circle align-middle"></i> This field is required </div>
+
                       </div>
                       <div class="form-group col-lg-6">
                         <label for="">Show order</label>
@@ -145,13 +154,13 @@
 
                     </div>
                     <div class="form-row">
-                      <div class="form-group col-lg-6">
-                        <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
-                          <input formControlName="isRelatedBlog" type="checkbox" class="custom-control-input" id="color-switch-6" >
-                          <label class="custom-control-label mr-1" for="color-switch-6">
-                            <span>Related Blog</span>
-                          </label>
-                        </div>
+                      <div class="form-group col-lg-6" *ngIf="formGroup.controls.isRelatedBlog.value == true">
+                        <label for="">Related Blogs</label>
+                        <ng-select [ngClass]="{ 'is-invalid': !selectedRelated}" [items]="related" bindLabel="name" placeholder="Select Blogs" [multiple]="true" [(ngModel)]="selectedRelated" [ngModelOptions]="{standalone: true}"></ng-select>
+                      </div>
+                      <div class="form-group col-lg-6" *ngIf="formGroup.controls.isRelatedBlog.value == false">
+                        <label for="">Related Project</label>
+                        <ng-select [ngClass]="{ 'is-invalid': !selectedRelated}" [items]="selectedRelated" bindLabel="name" placeholder="Select Projects" [multiple]="true" [(ngModel)]="selectedRelated" [ngModelOptions]="{standalone: true}"></ng-select>
                       </div>
                     </div>
                     <div class="form-row">

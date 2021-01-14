@@ -78,7 +78,7 @@ export class LoginPageComponent {
               this.cd.markForCheck()
             }
             else{
-              this.toasterService.TypeErrorDynamic('Invaild email pattern')
+              this.toasterService.TypeErrorDynamic('Invaild email address')
             }
           });
   }

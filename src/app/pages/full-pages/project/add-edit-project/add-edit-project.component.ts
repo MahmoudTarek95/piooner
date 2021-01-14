@@ -294,8 +294,11 @@ export class AddEditProjectComponent implements OnInit {
     let galleryList = []
     let galleryPc = this.formGroup.controls['galleryPc'].value
     let galleryMobile = this.formGroup.controls['galleryMobile'].value
+    let relatedProjectsIds = []
+    if(this.selectedProjects){
 
-    let relatedProjectsIds = this.selectedProjects.map(p => p.id)
+      relatedProjectsIds = this.selectedProjects.map(p => p.id)
+    }
 
     if(!this.isEditingMode){
       projectServiceValues.map(c => {
@@ -346,15 +349,15 @@ export class AddEditProjectComponent implements OnInit {
         develpoerId: this.selectedDeveloper,
         cityId:this.selectedCity.id,
         projectServices:projectServiceList,
-        relatedProject: relatedProjectsIds.join()
+        relatedProject: relatedProjectsIds ? relatedProjectsIds.join() : ''
       }
 
       if(projectServiceList.length < 3 || projectServiceList.length > 5){
         this.toasterService.TypeWarning('Minimum of Project Service is 3 and maximum is 5')
       }
-      else if (relatedProjectsIds.length < 3 || relatedProjectsIds.length > 5){
-        this.toasterService.TypeWarning('Minimum of Related Project is 3 and maximum is 5')
-      }
+      // else if (relatedProjectsIds.length < 3 || relatedProjectsIds.length > 5){
+      //   this.toasterService.TypeWarning('Minimum of Related Project is 3 and maximum is 5')
+      // }
       else{
         this.formService.post('Project/AddProject',projectObj).subscribe(res => {
           if(res){
