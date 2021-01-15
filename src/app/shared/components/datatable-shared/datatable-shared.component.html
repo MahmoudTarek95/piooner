@@ -36,6 +36,14 @@
         </div>
       </ng-template>
     </ngx-datatable-column>
+    <ngx-datatable-column name="Locked" prop="lockoutEnabled" [width]="70" *ngIf="type == 'userManagment'">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
+          <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + row.id" (change)="userLocked(row.id)"  [checked]="row.lockoutEnabled">
+          <label class="custom-control-label mr-1" [for]="'color-switch-' + row.id"></label>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
     <ngx-datatable-column name="Actions" prop="actions" [width]="70 " *ngIf="type != 'contactForm'">
       <ng-template ngx-datatable-cell-template let-row="row">
         <i (click)="deleteRow(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" *ngIf=" type != 'social' && type != 'about'"></i>

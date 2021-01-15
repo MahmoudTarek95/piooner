@@ -14,7 +14,7 @@
     <div id="kick-start" class="card">
       <div class="card-content">
         <div class="card-body">
-          <app-datatable [rows]="userList" [type]="'userManagment'" [columns]="columns" (delete)="deleteRow($event)" [loadingIndicator]="loadingIndicator" [addButtonRouterLink]="'add'" [filterBy]="['Title','id']"></app-datatable>
+          <app-datatable [rows]="userList" [type]="'userManagment'" (userId)="lockUser($event)" [columns]="columns" (delete)="deleteRow($event)" [loadingIndicator]="loadingIndicator" [addButtonRouterLink]="'add'" [filterBy]="['Title','id']"></app-datatable>
         </div>
       </div>
     </div>

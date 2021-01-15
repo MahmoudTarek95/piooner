@@ -23,6 +23,7 @@ export class DatatableSharedComponent implements OnInit {
   @Output() filterCity:EventEmitter<any> = new EventEmitter();
   @Output() commercialCity:EventEmitter<any> = new EventEmitter();
   @Output() specialCity:EventEmitter<any> = new EventEmitter();
+  @Output() userId:EventEmitter<any> = new EventEmitter();
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('status', { static: true }) photo: TemplateRef<any>; // select photo element
   @ViewChild('actions', { static: true }) actions: TemplateRef<any>; // select actions element
@@ -111,6 +112,9 @@ export class DatatableSharedComponent implements OnInit {
       id:id,
       event:event
     })
+  }
+  userLocked(id){
+    this.userId.emit(id)
   }
   deleteRow(id){
     this.delete.emit(id)

@@ -32,6 +32,15 @@ export class UserManagmentComponent implements OnInit {
     this.getUserList()
   }
 
+  lockUser(id){
+    this.formService.post('Auth/UnlockUser/' + id,{}).subscribe(res => {
+      this.getUserList()
+      this.toasterService.TypeSuccess()
+    },error => {
+      this.toasterService.TypeError()
+    })
+  }
+
   deleteRow(id){
     this.formService.post('Auth/DeleteUser/' + id, {}).subscribe(res => {
       this.getUserList()
