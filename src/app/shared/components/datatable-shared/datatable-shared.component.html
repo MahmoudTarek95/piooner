@@ -4,7 +4,7 @@
 <ngx-datatable #table class="bootstrap core-bootstrap" [rows]="rows" [columnMode]="'force'"
     [headerHeight]="50" [footerHeight]="50" [limit]="5" [rowHeight]="100" [reorderable]="true">
     <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop" [width]="col.width"></ngx-datatable-column>
-    <ngx-datatable-column name="Active" prop="isActive" [width]="70" *ngIf="type != 'slider' && type != 'social' && type != 'about' && type != 'footer' && type != 'userManagment' && type != 'contactForm'" >
+    <ngx-datatable-column name="Active" prop="isActive" [width]="70" *ngIf="type != 'slider' && type != 'about' && type != 'footer' && type != 'userManagment' && type != 'contactForm'" >
       <ng-template ngx-datatable-cell-template let-row="row">
         <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
           <input type="checkbox" class="custom-control-input" [id]="'color-switch-' + row.id" (change)="rowStatus(row.id)"  [checked]="row.isActive">

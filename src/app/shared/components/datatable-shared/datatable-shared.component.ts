@@ -93,6 +93,13 @@ export class DatatableSharedComponent implements OnInit {
           this.toasterService.TypeError()
         })
         break;
+      case 'social':
+        this.formService.post(`Home/ActiveSocialMedia/${id}`, {}).subscribe((res:any) => {
+          this.toasterService.TypeSuccess()
+        },(error) => {
+          this.toasterService.TypeError()
+        })
+        break;
     }
   }
   change(id){

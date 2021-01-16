@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthRoleGuard } from 'app/shared/auth/auth-role.guard';
+import { AboutUsBannerComponent } from './about-us/about-us-banner/about-us-banner.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { EditAboutUsComponent } from './about-us/edit-about-us/edit-about-us.component';
 import { AddEditBlogComponent } from './blogs/add-edit-blog/add-edit-blog.component';
@@ -182,6 +183,10 @@ const routes: Routes = [
           isAdd:false,
           isEdit:true
         }
+      },
+      {
+        path:'about/banner',
+        component:AboutUsBannerComponent,
       },
       {
         path:'footerLinks',

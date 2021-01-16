@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
+import { NGXToastrService } from 'app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-about-us',
@@ -11,7 +12,7 @@ export class AboutUsComponent implements OnInit {
   aboutList
   columns
 
-  constructor(private formService:FormService,private cd:ChangeDetectorRef) {
+  constructor(private formService:FormService,private cd:ChangeDetectorRef,private toastrService:NGXToastrService) {
     this.columns = [
       {
         name:'Title',
@@ -28,6 +29,14 @@ export class AboutUsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAboutList()
+  }
+
+  showAboutUs(){
+    this.formService.post('Home/ShowAboutUsSection',{}).subscribe(res => {
+      this.toastrService.TypeSuccess()
+    }, error => {
+      this.toastrService.TypeError()
+    })
   }
 
 

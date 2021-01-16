@@ -71,29 +71,17 @@
                 </div>
               </div>
               <div class="form-row">
-                <div class="mx-auto col-lg-12">
-                  <div id="full-wrapper">
-                    <div id="full-container">
-                      <label for="">Description En</label>
-                      <quill-editor formControlName="descriptionEn"></quill-editor>
-                      <div *ngIf="videoForm.controls.descriptionEn.errors?.required && videoForm.controls.descriptionEn.touched" class="help-block mt-1 text-danger"> <i
-                        class="ft-alert-circle align-middle"></i> This field is required </div>
-                        <p class="counter">Number of Words : {{editorEnCounter}}</p>
-                    </div>
-                  </div>
+                <div class="form-group col-lg-6">
+                  <label for="">Description En</label>
+                  <textarea [ngClass]="{ 'is-invalid': videoForm.controls.descriptionEn.errors?.required && videoForm.controls.descriptionEn.touched}" formControlName="descriptionEn" class="form-control"  name="" id="" cols="30" rows="10"></textarea>
+                  <div *ngIf="videoForm.controls.descriptionEn.errors?.required && videoForm.controls.descriptionEn.touched" class="help-block mt-1 text-danger"> <i
+                    class="ft-alert-circle align-middle"></i> This field is required </div>
                 </div>
-              </div>
-              <div class="form-row pt-3">
-                <div class="mx-auto col-lg-12">
-                  <div id="full-wrapper">
-                    <div id="full-container">
-                      <label for="">Description Ar</label>
-                      <quill-editor formControlName="descriptionAr"></quill-editor>
+                <div class="form-group col-lg-6">
+                  <label for="">Description Ar</label>
+                      <textarea [ngClass]="{ 'is-invalid': videoForm.controls.descriptionAr.errors?.required && videoForm.controls.descriptionAr.touched}" formControlName="descriptionAr" class="form-control"  name="" id="" cols="30" rows="10"></textarea>
                       <div *ngIf="videoForm.controls.descriptionAr.errors?.required && videoForm.controls.descriptionAr.touched" class="help-block mt-1 text-danger"> <i
                         class="ft-alert-circle align-middle"></i> This field is required </div>
-                        <p class="counter">Number of Words : {{editorArCounter}}</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </form>
