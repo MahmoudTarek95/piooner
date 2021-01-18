@@ -35,7 +35,12 @@ export class AboutUsComponent implements OnInit {
     this.formService.post('Home/ShowAboutUsSection',{}).subscribe(res => {
       this.toastrService.TypeSuccess()
     }, error => {
-      this.toastrService.TypeError()
+      if(error.status == 400){
+        this.toastrService.TypeWarning(error.error.error.message)
+        this.cd.markForCheck()
+      }else{
+        this.toastrService.TypeError()
+      }
     })
   }
 

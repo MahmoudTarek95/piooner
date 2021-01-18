@@ -51,7 +51,11 @@ export class AddUserRoleComponent implements OnInit {
         this.router.navigate(['content/userManagment'])
         this.toasterService.TypeSuccess()
       },(error) => {
-        this.toasterService.TypeError()
+        if(error.status == 400){
+          this.toasterService.TypeWarning(error.error.error.message)
+        }else{
+          this.toasterService.TypeError()
+        }
       })
     }
 

@@ -24,20 +24,15 @@
                         class="ft-alert-circle align-middle"></i> Email must be a valid email address</div>
                   </div>
                   <div class="form-group">
-                    <input type="password" formControlName="password" class="form-control" placeholder="Password"
-                      [ngClass]="{ 'is-invalid': loginFormSubmitted && lf.password.invalid, 'is-valid': loginFormSubmitted && !lf.password.invalid }"
-                      required>
-                    <div *ngIf="loginFormSubmitted && (lf.password.invalid || lf.password.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
-                    </div>
-                  </div>
-                  <div class="d-sm-flex justify-content-between mb-3 font-small-2">
-                    <div class="remember-me mb-2 mb-sm-0">
-                      <div class="checkbox auth-checkbox">
-                        <input type="checkbox" formControlName="rememberMe" class="form-control" id="rememberMe">
-                        <label for="rememberMe"><span class="font-small-2 mb-3 font-weight-normal">Remember Me</span></label>
+                    <fieldset class="form-group position-relative has-icon-right">
+                      <input placeholder="Password"
+                      [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="iconLeft2">
+                      <div class="form-control-position" (click)="showPassword = !showPassword">
+                        <i class="ft-eye"></i>
                       </div>
-                    </div>
+                      <div *ngIf="lf.password.errors?.required && lf.password.touched" class="help-block mt-1 text-danger"> <i
+                        class="ft-alert-circle align-middle"></i> This field is required </div>
+                    </fieldset>
                   </div>
                   <div class="d-flex justify-content-between flex-sm-row flex-column">
                     <!-- <a [routerLink]="['/pages/register']" class="btn bg-light-primary mb-2 mb-sm-0">Register</a> -->

@@ -41,7 +41,12 @@ export class HomeNavbarIconComponent implements OnInit {
     this.formSerive.post('Home/ActiveNavbar/' + id, {}).subscribe(res => {
       this.toastrSerivce.TypeSuccess()
     },error => {
-      this.toastrSerivce.TypeError()
+      if(error.status == 400){
+        this.toastrSerivce.TypeWarning(error.error.error.message)
+        this.cd.markForCheck()
+      }else{
+        this.toastrSerivce.TypeError()
+      }
     })
   }
 

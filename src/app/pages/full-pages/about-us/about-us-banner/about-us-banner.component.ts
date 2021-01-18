@@ -65,7 +65,12 @@ export class AboutUsBannerComponent implements OnInit {
       this.router.navigate(['content/about'])
       this.toasterService.TypeSuccess()
     },(error) => {
-      this.toasterService.TypeError()
+      if(error.status == 400){
+        this.toasterService.TypeWarning(error.error.error.message)
+        this.cd.markForCheck()
+      }else{
+        this.toasterService.TypeError()
+      }
     })
   }
   cancel(){

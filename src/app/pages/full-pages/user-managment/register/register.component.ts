@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['content/userManagment'])
       this.toasterService.TypeSuccess()
     },(resError) => {
-      console.log(resError)
       if(resError.status == 400){
         this.toasterService.TypeWarning(resError.error.error.message)
       }else {

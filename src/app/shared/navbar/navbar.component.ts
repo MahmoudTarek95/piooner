@@ -233,6 +233,10 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   getUserInfo(){
     this.userInfo = this.authRolesService.getUserDetails()
   }
+  userMessageInfo(id){
+    this.router.navigate(['content/contactUsForm/view/' + id])
+    this.localStorage.setItem('isMatched','true')
+  }
 
   logout(e:Event){
     e.preventDefault()

@@ -114,7 +114,11 @@ export class VideoComponent implements OnInit {
     this.formService.post('Home/EditVideoSection', videoObj).subscribe(res => {
       this.toasterService.TypeSuccess()
     },(error) => {
-      this.toasterService.TypeError()
+      if(error.status == 400){
+        this.toasterService.TypeWarning(error.error.error.message)
+      }else{
+        this.toasterService.TypeError()
+      }
     })
   }
 

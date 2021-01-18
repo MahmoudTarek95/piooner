@@ -102,7 +102,12 @@ export class AddEditCitesComponent implements OnInit {
         this.router.navigate(['content/cites'])
         this.toasterService.TypeSuccess()
       },(error) => {
-        this.toasterService.TypeError()
+        if(error.status == 400){
+          this.toasterService.TypeWarning(error.error.error.message)
+          this.cd.markForCheck()
+        }else{
+          this.toasterService.TypeError()
+        }
       })
     }else {
       let sliderData = {
@@ -120,7 +125,12 @@ export class AddEditCitesComponent implements OnInit {
         this.router.navigate(['content/cites'])
         this.toasterService.TypeSuccess()
       },(error) => {
-        this.toasterService.TypeError()
+        if(error.status == 400){
+          this.toasterService.TypeWarning(error.error.error.message)
+          this.cd.markForCheck()
+        }else{
+          this.toasterService.TypeError()
+        }
       })
     }
   }

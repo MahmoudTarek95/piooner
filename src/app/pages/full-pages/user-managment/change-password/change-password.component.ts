@@ -34,9 +34,9 @@ export class ChangePasswordComponent implements OnInit {
 
     this.formService.post('Auth/ChangePassword', changeObj).subscribe(res => {
       this.toastrService.TypeSuccess()
-    },resError => {
-      if(resError.status == 400){
-        this.toastrService.TypeWarning(resError.error.error.message)
+    },error => {
+      if(error.status == 400){
+        this.toastrService.TypeWarning(error.error.error.message)
       }else{
         this.toastrService.TypeError()
       }

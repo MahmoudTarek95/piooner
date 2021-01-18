@@ -1,31 +1,31 @@
-import { Injectable } from '@angular/core';
-import { interval } from 'rxjs';
-import { FormService } from './form.service';
+import { Injectable } from "@angular/core";
+import { interval } from "rxjs";
+import { FormService } from "./form.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class NotificationService {
+  constructor(private formService: FormService) {
+    this.formService.get("Home/ListContactUsForm").subscribe((res: any) => {
+      console.log();
+      localStorage.setItem("contact", JSON.stringify(res.data.slice(0, 5)));
+      localStorage.setItem("isMatched", "true");
+    });
+  }
 
-  constructor(private formService:FormService) {
-    this.formService.get('Home/ListContactUsForm').subscribe((res:any) => {
-      localStorage.setItem('contact',JSON.stringify(res.data))
-      localStorage.setItem('isMatched','true')
-    })
-   }
-
-  sendNotification(){
-    interval(2*60*1000).subscribe(res => {
-       this.formService.get('Home/ListContactUsForm').subscribe((res:any) => {
-         let savedList = JSON.parse(localStorage.getItem('contact'))
-         if(savedList && savedList[savedList.length -1].id == res.data[res.data.length -1].id){
-         }else{
-           localStorage.setItem('contact',JSON.stringify(res.data))
-          localStorage.setItem('isMatched','false')
-
-         }
-       })
-    })
+  sendNotification() {
+    interval( 10000).subscribe((res) => {
+      this.formService.get("Home/ListContactUsForm").subscribe((res: any) => {
+        let savedList = JSON.parse(localStorage.getItem("contact"));
+        let firstFive = res.data.slice(0, 5);
+        if (savedList[0]?.id == firstFive[0]?.id) {
+        } else {
+          localStorage.setItem("contact", JSON.stringify(firstFive));
+          localStorage.setItem("isMatched", "false");
+        }
+      });
+    });
     // this.formService.get('Home/ListContactUsForm')
   }
 }

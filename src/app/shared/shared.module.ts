@@ -37,6 +37,7 @@ import { TopMenuDirective } from './directives/topmenu.directive';
 import { TopMenuLinkDirective } from './directives/topmenu-link.directive';
 import { TopMenuDropdownDirective } from './directives/topmenu-dropdown.directive';
 import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle.directive';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 
@@ -51,6 +52,7 @@ import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle
         NotificationSidebarComponent,
         DatatableSharedComponent,
         UploaderComponent,
+        ModalComponent,
         ToggleFullscreenDirective,
         SidebarDirective,
         TopMenuDirective,
@@ -98,6 +100,7 @@ import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle
         TopMenuAnchorToggleDirective,
         TopMenuDirective,
         UploaderComponent,
+        ModalComponent,
     ]
 })
 export class SharedModule { }

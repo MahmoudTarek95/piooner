@@ -254,10 +254,7 @@ export class AddEditBlogComponent implements OnInit,OnChanges {
         tags: this.selectedTag.map(t => t.id),
         related:relatedBlogsIds ? relatedBlogsIds.join() : ''
       }
-      if (this.selectedTag.length < 3 || this.selectedTag.length > 5){
-        this.toasterService.TypeWarning('Minimum of Tags is 3 and maximum is 5')
-      }
-      else if(this.selectedRelated &&  (this.selectedRelated.length < 3 || this.selectedRelated.length > 5)){
+      if(this.selectedRelated &&  (this.selectedRelated.length < 3 || this.selectedRelated.length > 5)){
         this.toasterService.TypeWarning('Minimum of Blogs is 3 and maximum is 5')
       }
       else{
@@ -268,7 +265,12 @@ export class AddEditBlogComponent implements OnInit,OnChanges {
             this.toasterService.TypeSuccess()
           }
         },(error) => {
-          this.toasterService.TypeError()
+          if(error.status == 400){
+            this.toasterService.TypeWarning(error.error.error.message)
+            this.cd.markForCheck()
+          }else{
+            this.toasterService.TypeError()
+          }
         })
       }
     }else {
@@ -306,11 +308,7 @@ export class AddEditBlogComponent implements OnInit,OnChanges {
         tags: this.selectedTag.map(t => t.id),
         related:relatedBlogsIds.join()
       }
-
-      if (this.selectedTag.length < 3 || this.selectedTag.length > 5){
-        this.toasterService.TypeWarning('Minimum of Tags is 3 and maximum is 5')
-      }
-      else if(this.selectedRelated.length < 3 || this.selectedRelated.length > 5){
+      if(this.selectedRelated.length < 3 || this.selectedRelated.length > 5){
         this.toasterService.TypeWarning('Minimum of Related is 3 and maximum is 5')
       }
       else{
@@ -321,7 +319,12 @@ export class AddEditBlogComponent implements OnInit,OnChanges {
           }
           this.toasterService.TypeSuccess()
         },(error) => {
-          this.toasterService.TypeError()
+          if(error.status == 400){
+            this.toasterService.TypeWarning(error.error.error.message)
+            this.cd.markForCheck()
+          }else{
+            this.toasterService.TypeError()
+          }
         })
       }
 

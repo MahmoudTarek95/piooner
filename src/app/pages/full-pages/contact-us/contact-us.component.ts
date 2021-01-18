@@ -56,7 +56,12 @@ export class ContactUsComponent implements OnInit {
     this.formService.post('Home/EditHomeContact',contactObj).subscribe(res => {
       this.toasterService.TypeSuccess()
     },(error) => {
+      if(error.status == 400){
+        this.toasterService.TypeWarning(error.error.error.message)
+        this.cd.markForCheck()
+      }else{
         this.toasterService.TypeError()
+      }
       })
   }
 

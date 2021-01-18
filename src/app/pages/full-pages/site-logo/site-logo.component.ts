@@ -17,7 +17,6 @@ export class SiteLogoComponent implements OnInit {
   constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
 
     this.formGroup = fb.group({
-      icon: ['',[Validators.required]],
       logo: ['',[Validators.required]]
     })
    }
@@ -28,10 +27,6 @@ export class SiteLogoComponent implements OnInit {
 
   setSliderData(sliderData){
     this.formGroup.patchValue({
-      icon: {
-        id:sliderData.siteIcon,
-        url:sliderData.siteIconUrl
-      },
       logo: {
         id:sliderData.siteLogo,
         url:sliderData.siteLogoUrl
@@ -42,11 +37,6 @@ export class SiteLogoComponent implements OnInit {
   doneUploadingLogo(event){
     this.formGroup.patchValue({
       logo:event
-    })
-  }
-  doneUploadingIcon(event){
-    this.formGroup.patchValue({
-      icon:event
     })
   }
 
@@ -62,8 +52,7 @@ export class SiteLogoComponent implements OnInit {
 
   submitForm(){
     let sliderData = {
-      siteLogo: this.formGroup.controls['logo'].value.id,
-      siteIcon: this.formGroup.controls['icon'].value.id
+      siteLogo: this.formGroup.controls['logo'].value.id
     }
 
     this.formService.post('Home/EditLogo',sliderData).subscribe(res => {
