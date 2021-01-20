@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -9,13 +9,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ModalComponent implements OnInit {
 
   closeResult = '';
+  buttons = []
+  template
+  @Output() buttonId:EventEmitter<any> = new EventEmitter()
 
-  constructor(private modalService: NgbModal) {}
+  constructor(public modalService: NgbModal) {}
+
   ngOnInit():void{}
 
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-     console.log(result)
-    });
+  click(buttonId){
+    this.buttonId.emit(buttonId)
+    this.modalService.dismissAll()
   }
 }

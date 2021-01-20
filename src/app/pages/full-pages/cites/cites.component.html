@@ -12,7 +12,7 @@
     <div id="kick-start" class="card">
       <div class="card-content">
         <div class="card-body">
-          <app-datatable [rows]="citesList" [type]="'cites'"  [columns]="columns" (commercialCity)="cityCommercial($event)" (filterCity)="cityFilter($event)" (specialCity)="citySpecial($event)" (delete)="deleteRow($event)" [loadingIndicator]="loadingIndicator" [addButtonRouterLink]="'add'" [filterBy]="['Title','id']"></app-datatable>
+          <app-datatable [rows]="citesList" [type]="'cites'"  [columns]="columns" (commercialCity)="cityCommercial($event)" (filterCity)="cityFilter($event)" (specialCity)="citySpecial($event)" (delete)="openModal($event)" [loadingIndicator]="loadingIndicator" [addButtonRouterLink]="'add'" [filterBy]="['Title','id']"></app-datatable>
         </div>
       </div>
     </div>

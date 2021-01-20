@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
+import { ModalService } from 'app/shared/services/modal.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cites',
@@ -13,7 +15,7 @@ export class CitesComponent implements OnInit {
   citesList
   columns
 
-  constructor(private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
+  constructor(private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef,private modalSerivce:ModalService) {
     this.columns = [
       {
         name:'Name',
@@ -57,6 +59,28 @@ export class CitesComponent implements OnInit {
       this.toasterService.TypeSuccess()
     },(error) => {
       this.toasterService.TypeError()
+    })
+  }
+  openModal(id){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalSerivce.open(buttons)
+    this.modalSerivce.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteRow(id)
+      }else{
+        this.modalSerivce.dismissModal()
+      }
     })
   }
 

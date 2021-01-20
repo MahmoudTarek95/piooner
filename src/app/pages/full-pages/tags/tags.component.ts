@@ -2,8 +2,10 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } fr
 import { Router } from '@angular/router';
 import { ColumnMode, SelectionType, DatatableComponent } from '@swimlane/ngx-datatable';
 import { FormService } from 'app/shared/services/form.service';
+import { ModalService } from 'app/shared/services/modal.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tags',
@@ -26,7 +28,7 @@ export class TagsComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private formService:FormService, private toasterService:NGXToastrService,private router:Router,private cd:ChangeDetectorRef) {
+  constructor(private formService:FormService, private toasterService:NGXToastrService,private router:Router,private cd:ChangeDetectorRef, private modalSerivce:ModalService) {
 
     this.columns = [
       {
@@ -90,6 +92,50 @@ export class TagsComponent implements OnInit {
     this.router.navigate(['content/tags/edit/' + id])
   }
 
+  openModal(id){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalSerivce.open(buttons)
+    this.modalSerivce.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteRow(id)
+      }else{
+        this.modalSerivce.dismissModal()
+      }
+    })
+  }
+  openModalMulti(){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalSerivce.open(buttons)
+    this.modalSerivce.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteSelectedValues()
+      }else{
+        this.modalSerivce.dismissModal()
+      }
+    })
+  }
   ngOnDestroy(){
     this.subscription.unsubscribe()
   }

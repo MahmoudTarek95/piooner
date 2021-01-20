@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
+import { ModalService } from 'app/shared/services/modal.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-footer-links',
@@ -13,7 +15,7 @@ export class FooterLinksComponent implements OnInit {
   footerList
   columns
 
-  constructor(private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
+  constructor(private formService:FormService,private toasterService:NGXToastrService,private cd:ChangeDetectorRef,private modalService:ModalService) {
     this.columns = [
       {
         name:'Title',
@@ -31,7 +33,28 @@ export class FooterLinksComponent implements OnInit {
   ngOnInit(): void {
     this.getFooterList()
   }
-
+  openModal(id){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalService.open(buttons)
+    this.modalService.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteRow(id)
+      }else{
+        this.modalService.dismissModal()
+      }
+    })
+  }
   deleteRow(id){
     this.formService.post('Home/DeleteFooterLinks/' + id, {}).subscribe(res => {
       this.getFooterList()

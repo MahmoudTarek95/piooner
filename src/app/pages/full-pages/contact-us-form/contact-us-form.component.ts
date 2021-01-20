@@ -10,6 +10,8 @@ import {
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { ModalService } from 'app/shared/services/modal.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact-us-form',
@@ -31,7 +33,7 @@ export class ContactUsFormComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private formService:FormService, private toasterService:NGXToastrService, private datePipe:DatePipe,private router:Router,private cd:ChangeDetectorRef) {
+  constructor(private formService:FormService, private toasterService:NGXToastrService, private datePipe:DatePipe,private router:Router,private cd:ChangeDetectorRef,private modalService:ModalService) {
 
     this.columns = [
       {
@@ -115,6 +117,51 @@ export class ContactUsFormComponent implements OnInit {
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+
+  openModal(id){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalService.open(buttons)
+    this.modalService.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteRow(id)
+      }else{
+        this.modalService.dismissModal()
+      }
+    })
+  }
+  openModalMulti(){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalService.open(buttons)
+    this.modalService.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteSelectedValues()
+      }else{
+        this.modalService.dismissModal()
+      }
+    })
   }
 
   ngOnDestroy(){

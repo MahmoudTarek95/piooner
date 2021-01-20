@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 d-flex justify-content-between">
     <div class="content-header col-lg-6">Contact Us Form</div>
-    <button *ngIf="selectedIds && selectedIds.length > 0" (click)="deleteSelectedValues()" class="btn btn-danger col-lg-2">Delete Selected</button>
+    <button *ngIf="selectedIds && selectedIds.length > 0" (click)="openModalMulti()" class="btn btn-danger col-lg-2">Delete Selected</button>
     <button (click)="downloadExcelFile()" class="btn btn-primary col-lg-2">Excel File</button>
     <!-- <p class="content-sub-header mb-1">You can define your sub-header here</p> -->
   </div>
@@ -41,7 +41,7 @@
           <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop" [width]="100"></ngx-datatable-column>
           <ngx-datatable-column name="Actions" prop="actions" [width]="70 ">
             <ng-template ngx-datatable-cell-template let-row="row">
-              <i (click)="deleteRow(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" ></i>
+              <i (click)="openModal(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" ></i>
               <i (click)="viewItem(row.id)" class="ft-eye text-primary cursor-pointer font-size mr-2" ></i>
             </ng-template>
           </ngx-datatable-column>

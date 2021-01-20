@@ -12,7 +12,7 @@
     <div id="kick-start" class="card">
       <div class="card-content">
         <div class="card-body">
-          <app-datatable [rows]="footerList" [type]="'footer'" [columns]="columns" (delete)="deleteRow($event)" [loadingIndicator]="loadingIndicator" [addButtonRouterLink]="'add'" [filterBy]="['Title','id']"></app-datatable>
+          <app-datatable [rows]="footerList" [type]="'footer'" [columns]="columns" (delete)="openModal($event)" [loadingIndicator]="loadingIndicator" [addButtonRouterLink]="'add'" [filterBy]="['Title','id']"></app-datatable>
         </div>
       </div>
     </div>

@@ -1,9 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
+import { ModalComponent } from 'app/shared/components/modal/modal.component';
 import { FormService } from 'app/shared/services/form.service';
+import { ModalService } from 'app/shared/services/modal.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blogs',
@@ -22,7 +26,8 @@ export class BlogsComponent implements OnInit {
   public SelectionType = SelectionType;
   private tempData = [];
   @ViewChild(DatatableComponent) table: DatatableComponent;
-  constructor(private formService:FormService, private toasterService:NGXToastrService,private router:Router,private cd:ChangeDetectorRef) {
+  @ViewChild('modal') modal: any;
+  constructor(private formService:FormService, private toasterService:NGXToastrService,private router:Router,private cd:ChangeDetectorRef,private modalSerivce:ModalService) {
     this.columns = [
       {
         name:'Name',
@@ -91,6 +96,51 @@ export class BlogsComponent implements OnInit {
       this.rows = res.data
       this.cd.markForCheck()
       this.tempData = [...this.rows]
+    })
+  }
+
+  openModal(id){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalSerivce.open(buttons)
+    this.modalSerivce.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteBlog(id)
+      }else{
+        this.modalSerivce.dismissModal()
+      }
+    })
+  }
+  openModalMulti(){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalSerivce.open(buttons)
+    this.modalSerivce.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteSelectedValues()
+      }else{
+        this.modalSerivce.dismissModal()
+      }
     })
   }
 }

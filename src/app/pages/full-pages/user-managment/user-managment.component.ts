@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormService } from 'app/shared/services/form.service';
+import { ModalService } from 'app/shared/services/modal.service';
 import { NGXToastrService } from 'app/shared/services/toastr.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-managment',
@@ -13,7 +15,7 @@ export class UserManagmentComponent implements OnInit {
   userList
   columns
 
-  constructor(private formService:FormService,private toasterService:NGXToastrService, private cd:ChangeDetectorRef) {
+  constructor(private formService:FormService,private toasterService:NGXToastrService, private cd:ChangeDetectorRef,private modalSerivce:ModalService) {
     this.columns = [
       {
         name:'Username',
@@ -57,7 +59,28 @@ export class UserManagmentComponent implements OnInit {
       }
     })
   }
-
+  openModal(id){
+    const buttons = [
+      {
+        id:1,
+        name:'Delete',
+        class:'btn-danger'
+      },
+      {
+        id:2,
+        name:'Cancel',
+        class:'btn-primary'
+      }
+    ]
+    this.modalSerivce.open(buttons)
+    this.modalSerivce.btnId.pipe(first()).subscribe(btnId => {
+      if(btnId == 1){
+        this.deleteRow(id)
+      }else{
+        this.modalSerivce.dismissModal()
+      }
+    })
+  }
   getUserList(){
     this.formService.get('Auth/ListUser').subscribe((res:any) => {
       this.userList = res.data
