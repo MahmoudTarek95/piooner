@@ -15,7 +15,7 @@ export class NotificationService {
   }
 
   sendNotification() {
-    interval( 10000).subscribe((res) => {
+    interval(2 * 60 * 1000).subscribe((res) => {
       this.formService.get("Home/ListContactUsForm").subscribe((res: any) => {
         let savedList = JSON.parse(localStorage.getItem("contact"));
         let firstFive = res.data.slice(0, 5);

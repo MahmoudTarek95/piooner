@@ -185,12 +185,6 @@
                         <div *ngIf="formGroup.controls.whatsNumber.errors?.required && formGroup.controls.whatsNumber.touched" class="help-block mt-1 text-danger"> <i
                           class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
-                      <!-- <div class="form-group col-lg-4">
-                        <label for="">Price</label>
-                        <input [ngClass]="{ 'is-invalid': formGroup.controls.price.errors?.required && formGroup.controls.price.touched}" formControlName="price" type="text" class="form-control" >
-                        <div *ngIf="formGroup.controls.price.errors?.required && formGroup.controls.price.touched" class="help-block mt-1 text-danger"> <i
-                          class="ft-alert-circle align-middle"></i> This field is required </div>
-                      </div> -->
                     </div>
                     <div class="form-row">
                       <div class="form-group col-lg-6">
@@ -219,7 +213,7 @@
                     <div class="form-row">
                       <div class="form-group col-lg-6">
                         <label for="">Cites</label>
-                        <ng-select [items]="cites" bindLabel="name"  placeholder="Select Cites"  [(ngModel)]="selectedCity" [ngModelOptions]="{standalone: true}"></ng-select>
+                        <ng-select [items]="cites" bindLabel="name"  placeholder="Select Cites" (change)="onCityChange()"  [(ngModel)]="selectedCity" [ngModelOptions]="{standalone: true}"></ng-select>
                       </div>
                       <div class="form-group col-lg-6 pt-4" *ngIf="selectedCity?.isCommercial == true">
                         <div class="custom-switch custom-switch-info  mb-1 mb-xl-0">
@@ -228,6 +222,12 @@
                             <span>Commercial</span>
                           </label>
                         </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Property</label>
+                        <ng-select [items]="properties" bindLabel="name" bindValue="id"  placeholder="Select Property"  [(ngModel)]="selectedProperty" [ngModelOptions]="{standalone: true}"></ng-select>
                       </div>
                     </div>
                     <div class="form-row">

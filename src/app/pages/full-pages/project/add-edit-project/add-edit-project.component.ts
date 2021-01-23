@@ -35,9 +35,11 @@ export class AddEditProjectComponent implements OnInit {
   selectedDeveloper;
   selectedCity;
   selectedProjects;
+  selectedProperty
   mapedProjects = []
   projects = []
   cites = []
+  properties = []
   enable = false
   developers = []
   constructor(private fb:FormBuilder,private formService:FormService, private activatedRoute:ActivatedRoute, private router:Router,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
@@ -107,6 +109,7 @@ export class AddEditProjectComponent implements OnInit {
       }
     })
   }
+
   onContentChangedEn(e){
     let text = e.text.split(/\s+/)
     text.splice(text.length -1,1)
@@ -205,6 +208,7 @@ export class AddEditProjectComponent implements OnInit {
 
 
     this.selectedDeveloper = projectData.develpoerId
+    this.selectedProperty = projectData.propertyTypeId
     this.selectedCity ={
       id:projectData.cityId,
       name:projectData.cityNameEn,
@@ -218,7 +222,7 @@ export class AddEditProjectComponent implements OnInit {
     })
     this.gallerPcImageMap = galleryPc;
     this.galleryMobileImageMap = galleryMobile
-
+    this.getProperties(this.selectedCity.id)
 
   }
 
@@ -280,6 +284,20 @@ export class AddEditProjectComponent implements OnInit {
         }
       })
     })
+  }
+
+  getProperties(cityId){
+    this.formService.get('Project/GetPropertyTypeDropDown/' + cityId).subscribe((res:any) => {
+      this.properties = res.data.map(r => {
+        return {
+          id:r.id,
+          name:r.nameEN
+        }
+      })
+    })
+  }
+  onCityChange(){
+    this.getProperties(this.selectedCity.id)
   }
 
   submitForm(){
@@ -347,6 +365,7 @@ export class AddEditProjectComponent implements OnInit {
         isCommercial:this.formGroup.controls['isCommercial'].value,
         gallery: galleryList,
         develpoerId: this.selectedDeveloper,
+        propertyTypeId:this.selectedProperty,
         cityId:this.selectedCity.id,
         projectServices:projectServiceList,
         relatedProject: relatedProjectsIds ? relatedProjectsIds.join() : ''
@@ -425,6 +444,7 @@ export class AddEditProjectComponent implements OnInit {
         showOrder: this.formGroup.controls['sortOrder'].value,
         gallery: galleryList,
         develpoerId: this.selectedDeveloper,
+        propertyTypeId:this.selectedProperty,
         cityId:this.selectedCity.id,
         relatedProject: relatedProjectsIds.join(),
         projectQuestion:projectServiceList

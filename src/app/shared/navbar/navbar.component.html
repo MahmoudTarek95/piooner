@@ -47,7 +47,7 @@
               <i class="ft-bell font-medium-3"></i>
               <span *ngIf="!(json.parse(localStorage.getItem('isMatched')))" class="notification badge badge-pill badge-danger"></span>
             </a>
-            <ul ngbDropdownMenu
+            <ul ngbDropdownMenu *ngIf="json.parse(localStorage.getItem('contact')).length > 0"
             class="notification-dropdown dropdown-menu dropdown-menu-media dropdown-menu-right m-0 overflow-hidden">
             <li class="scrollable-container" [perfectScrollbar]>
               <div class="d-flex justify-content-between cursor-pointer read-notification" (click)="userMessageInfo(item.id)" *ngFor="let item of json.parse(localStorage.getItem('contact'))">
