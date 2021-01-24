@@ -24,6 +24,7 @@ export class DatatableSharedComponent implements OnInit {
   @Output() commercialCity:EventEmitter<any> = new EventEmitter();
   @Output() specialCity:EventEmitter<any> = new EventEmitter();
   @Output() userId:EventEmitter<any> = new EventEmitter();
+  @Output() rowUrl:EventEmitter<any> = new EventEmitter();
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('status', { static: true }) photo: TemplateRef<any>; // select photo element
   @ViewChild('actions', { static: true }) actions: TemplateRef<any>; // select actions element
@@ -125,6 +126,9 @@ export class DatatableSharedComponent implements OnInit {
   }
   deleteRow(id){
     this.delete.emit(id)
+  }
+  preview(id){
+    this.rowUrl.emit(id)
   }
 
 

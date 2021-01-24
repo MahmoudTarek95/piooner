@@ -47,15 +47,11 @@
     <ngx-datatable-column name="Actions" prop="actions" [width]="70 " *ngIf="type != 'contactForm'">
       <ng-template ngx-datatable-cell-template let-row="row">
         <i (click)="deleteRow(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" *ngIf=" type != 'social' && type != 'about'"></i>
-        <i (click)="editRow(row.id)" class="ft-edit text-primary cursor-pointer font-size" *ngIf="type != 'userManagment'"></i>
+        <i (click)="editRow(row.id)" class="ft-edit text-primary cursor-pointer font-size mr-2" *ngIf="type != 'userManagment'"></i>
         <i (click)="change(row.id)" class="ft-edit text-primary cursor-pointer font-size" *ngIf="type == 'userManagment'"></i>
+        <!-- <i (click)="preview(row.url)" class="ft-eye text-primary cursor-pointer font-size" *ngIf="type == 'developer'"></i> -->
       </ng-template>
     </ngx-datatable-column>
 </ngx-datatable>
-<!-- Button trigger modal -->
-
-<!-- <ng-template #photo let-row="row">
-  <img class="img img-thumbnail datatable-image"  [src]="row.imageUrl" />
-</ng-template> -->
 
 

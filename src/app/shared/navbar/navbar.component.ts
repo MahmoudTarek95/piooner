@@ -125,12 +125,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.menuPosition = this.config.layout.menuPosition;
     }
 
-    if (this.config.layout.variant === "Light") {
-      this.logoUrl = 'assets/img/logo-dark.png';
-    }
-    else {
-      this.logoUrl = 'assets/img/logo.png';
-    }
 
     if (this.config.layout.variant === "Transparent") {
       this.transparentBGClass = this.config.layout.sidebar.backgroundColor;
@@ -190,18 +184,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     if (language === 'en') {
       this.selectedLanguageText = "English";
       this.selectedLanguageFlag = "./assets/img/flags/us.png";
-    }
-    else if (language === 'es') {
-      this.selectedLanguageText = "Spanish";
-      this.selectedLanguageFlag = "./assets/img/flags/es.png";
-    }
-    else if (language === 'pt') {
-      this.selectedLanguageText = "Portuguese";
-      this.selectedLanguageFlag = "./assets/img/flags/pt.png";
-    }
-    else if (language === 'de') {
-      this.selectedLanguageText = "German";
-      this.selectedLanguageFlag = "./assets/img/flags/de.png";
     }
   }
 

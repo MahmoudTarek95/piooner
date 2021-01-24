@@ -121,6 +121,9 @@ export class BlogsComponent implements OnInit {
       }
     })
   }
+  preview(url){
+    window.open(url, '_blank')
+  }
   openModalMulti(){
     const buttons = [
       {

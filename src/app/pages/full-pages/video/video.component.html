@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="">Title Ar</label>
-                  <input [ngClass]="{ 'is-invalid': videoForm.controls.titleAr.errors?.required && videoForm.controls.titleAr.touched}" formControlName="titleAr" type="text" class="form-control" >
+                  <input dir="rtl" [ngClass]="{ 'is-invalid': videoForm.controls.titleAr.errors?.required && videoForm.controls.titleAr.touched}" formControlName="titleAr" type="text" class="form-control" >
                   <div *ngIf="videoForm.controls.titleAr.errors?.required && videoForm.controls.titleAr.touched" class="help-block mt-1 text-danger"> <i
                     class="ft-alert-circle align-middle"></i> This field is required </div>
                 </div>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="">Description Ar</label>
-                      <textarea [ngClass]="{ 'is-invalid': videoForm.controls.descriptionAr.errors?.required && videoForm.controls.descriptionAr.touched}" formControlName="descriptionAr" class="form-control"  name="" id="" cols="30" rows="10"></textarea>
+                      <textarea dir="rtl" [ngClass]="{ 'is-invalid': videoForm.controls.descriptionAr.errors?.required && videoForm.controls.descriptionAr.touched}" formControlName="descriptionAr" class="form-control"  name="" id="" cols="30" rows="10"></textarea>
                       <div *ngIf="videoForm.controls.descriptionAr.errors?.required && videoForm.controls.descriptionAr.touched" class="help-block mt-1 text-danger"> <i
                         class="ft-alert-circle align-middle"></i> This field is required </div>
                 </div>

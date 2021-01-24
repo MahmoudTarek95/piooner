@@ -97,6 +97,10 @@ export class ProjectComponent implements OnInit {
     })
   }
 
+  preview(url){
+    window.open(url, '_blank')
+  }
+
   openModal(id){
     const buttons = [
       {

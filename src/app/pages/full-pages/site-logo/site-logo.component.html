@@ -20,7 +20,11 @@
               <div class="form-row">
                 <div class="form-group col-lg-6">
                   <label for="">Upload Logo</label>
-                  <app-uploader  [type]="'imagePc'" [imageSrc]="formGroup.controls.logo.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingLogo($event)" [isMultiable]="false"></app-uploader>
+                  <app-uploader  [type]="'logo'" [imageSrc]="formGroup.controls.logo.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingLogo($event)" [isMultiable]="false"></app-uploader>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="">Upload Footer logo</label>
+                  <app-uploader  [type]="'logoFooter'" [imageSrc]="formGroup.controls.logoFooter.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingLogoFooter($event)" [isMultiable]="false"></app-uploader>
                 </div>
               </div>
             </form>

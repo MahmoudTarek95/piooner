@@ -70,6 +70,7 @@ export class UploaderComponent implements OnInit {
       case 'bannerMobile':
       case 'galleryMobile':
       case 'logo':
+      case 'logoFooter':
         if(event.target.files[0].size < 50000){
           this.sizeValidationMobile = false
           if (this.isMultiable) {
@@ -134,6 +135,9 @@ export class UploaderComponent implements OnInit {
           break;
         case 'logo':
           this.formGroup.controls['logo'].setValue('')
+          break;
+        case 'logoFooter':
+          this.formGroup.controls['logoFooter'].setValue('')
           break;
         case 'bannerPc':
           this.formGroup.controls['bannerPc'].setValue('')

@@ -12,6 +12,8 @@ export class AboutUsComponent implements OnInit {
   aboutList
   columns
 
+  isChecked
+
   constructor(private formService:FormService,private cd:ChangeDetectorRef,private toastrService:NGXToastrService) {
     this.columns = [
       {
@@ -29,6 +31,7 @@ export class AboutUsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAboutList()
+    this.getShowAboutUs()
   }
 
   showAboutUs(){
@@ -41,6 +44,12 @@ export class AboutUsComponent implements OnInit {
       }else{
         this.toastrService.TypeError()
       }
+    })
+  }
+
+  getShowAboutUs(){
+    this.formService.get('Home/GetFlagAboutUsSection').subscribe((res:any) => {
+      this.isChecked = res.data
     })
   }
 

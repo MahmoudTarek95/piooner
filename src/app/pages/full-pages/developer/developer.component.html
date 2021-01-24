@@ -12,7 +12,7 @@
     <div id="kick-start" class="card">
       <div class="card-content">
         <div class="card-body">
-          <app-datatable [rows]="developersList" [type]="'developer'" (delete)="deleteDeveloper($event)" [columns]="columns" [addButtonRouterLink]="'add'" [filterBy]="['id','nameEn','showOrder']"></app-datatable>
+          <app-datatable [rows]="developersList" [type]="'developer'" (rowUrl)="preview($event)" (delete)="deleteDeveloper($event)" [columns]="columns" [addButtonRouterLink]="'add'" [filterBy]="['id','nameEn','showOrder']"></app-datatable>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ export class AboutUsBannerComponent implements OnInit {
   }
 
   getBannerData(){
-    this.formService.get('Home​/GetAboutUsBanner').subscribe((res:any) => {
+    this.formService.get('Home/GetAboutUsBanner').subscribe((res:any) => {
       this.bannerData = res.data
       this.cd.markForCheck()
       this.setBannerData(this.bannerData)
@@ -60,7 +60,7 @@ export class AboutUsBannerComponent implements OnInit {
       mobileImage: this.formGroup.controls['imageMobile'].value.id,
     }
 
-    this.formService.post('Slider/AddSlider',sliderData).subscribe(res => {
+    this.formService.post('Home/EditAboutUsBanner',sliderData).subscribe(res => {
       this.formGroup.reset()
       this.router.navigate(['content/about'])
       this.toasterService.TypeSuccess()

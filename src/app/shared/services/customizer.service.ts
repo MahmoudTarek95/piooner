@@ -128,27 +128,7 @@ export class CustomizerService {
     {
       src: "assets/img/sidebar-bg/01.jpg",
       active: false
-    },
-    {
-      src: "assets/img/sidebar-bg/02.jpg",
-      active: false
-    },
-    {
-      src: "assets/img/sidebar-bg/03.jpg",
-      active: false
-    },
-    {
-      src: "assets/img/sidebar-bg/04.jpg",
-      active: false
-    },
-    {
-      src: "assets/img/sidebar-bg/05.jpg",
-      active: false
-    },
-    {
-      src: "assets/img/sidebar-bg/06.jpg",
-      active: false
-    },
+    }
   ];
 
   // Background Colors with Shades for Transparent Layout

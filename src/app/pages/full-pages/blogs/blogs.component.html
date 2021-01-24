@@ -51,6 +51,7 @@
             <ng-template ngx-datatable-cell-template let-row="row">
               <i (click)="openModal(row.id)" class="ft-trash text-primary cursor-pointer font-size mr-2" ></i>
               <i (click)="editRow(row.id)" class="ft-edit text-primary cursor-pointer font-size"></i>
+              <!-- <i (click)="preview(row.url)" class="ft-eye text-primary cursor-pointer font-size"></i> -->
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

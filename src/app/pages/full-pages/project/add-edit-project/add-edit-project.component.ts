@@ -137,13 +137,13 @@ export class AddEditProjectComponent implements OnInit {
         tilteEn:[res.tilteEn,[Validators.required]],
         tilteAr:[res.tilteAr,[Validators.required]],
         descriptionEn:[res.descriptionEn,[Validators.required]],
-        descriptionAr:[res.descriptionAr,[Validators.required]]
+        descriptionAr:[res.descriptionAr,[Validators.required]],
+        showOrder: res.showOrder
       })
 
       usersArray.insert(arraylen, newUsergroup);
 
     })
-    console.log(this.formGroup.controls.projectService)
     let gallery = projectData.gallery
     let galleryPc = []
     let galleryMobile = []
@@ -319,12 +319,13 @@ export class AddEditProjectComponent implements OnInit {
     }
 
     if(!this.isEditingMode){
-      projectServiceValues.map(c => {
+      projectServiceValues.forEach((c,i) => {
         projectServiceList.push({
           tilteEn: c['tilteEn'].value,
           tilteAr: c['tilteAr'].value,
           descriptionAr: c['descriptionAr'].value,
           descriptionEn: c['descriptionEn'].value,
+          showOrder:i
         })
       })
       for (let i = 0; i < galleryPc.length; i++) {
@@ -394,13 +395,14 @@ export class AddEditProjectComponent implements OnInit {
         })
       }
     }else {
-      projectServiceValues.map(c => {
+      projectServiceValues.forEach((c,i) => {
         projectServiceList.push({
           id:c['id'] ? c['id'].value : 0,
           tilteEn: c['tilteEn'].value,
           tilteAr: c['tilteAr'].value,
           descriptionAr: c['descriptionAr'].value,
           descriptionEn: c['descriptionEn'].value,
+          showOrder: i
         })
       })
       for (let i = 0; i < galleryPc.length; i++) {

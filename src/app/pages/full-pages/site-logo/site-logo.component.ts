@@ -17,7 +17,8 @@ export class SiteLogoComponent implements OnInit {
   constructor(private fb:FormBuilder, private formService:FormService,private router:Router, private activatedRoute:ActivatedRoute,private toasterService:NGXToastrService,private cd:ChangeDetectorRef) {
 
     this.formGroup = fb.group({
-      logo: ['',[Validators.required]]
+      logo: ['',[Validators.required]],
+      logoFooter: ['',[Validators.required]]
     })
    }
 
@@ -30,6 +31,10 @@ export class SiteLogoComponent implements OnInit {
       logo: {
         id:sliderData.siteLogo,
         url:sliderData.siteLogoUrl
+      },
+      logoFooter: {
+        id:sliderData.footerLogo,
+        url:sliderData.footerLogoUrl
       }
     })
   }
@@ -37,6 +42,11 @@ export class SiteLogoComponent implements OnInit {
   doneUploadingLogo(event){
     this.formGroup.patchValue({
       logo:event
+    })
+  }
+  doneUploadingLogoFooter(event){
+    this.formGroup.patchValue({
+      logoFooter:event
     })
   }
 
@@ -52,12 +62,11 @@ export class SiteLogoComponent implements OnInit {
 
   submitForm(){
     let sliderData = {
-      siteLogo: this.formGroup.controls['logo'].value.id
+      siteLogo: this.formGroup.controls['logo'].value.id,
+      footerLogo:this.formGroup.controls['logoFooter'].value.id
     }
 
     this.formService.post('Home/EditLogo',sliderData).subscribe(res => {
-      this.formGroup.reset()
-      this.router.navigate(['content/logo'])
       this.toasterService.TypeSuccess()
     },(error) => {
       this.toasterService.TypeError()
