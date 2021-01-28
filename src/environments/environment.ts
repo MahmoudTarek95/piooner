@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  url:'https://swagger.city-edge-developments.com/api/'
+  url:'https://swagger.pioneer.city-edge-developments.com/api/'
 };

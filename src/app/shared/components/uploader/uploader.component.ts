@@ -44,7 +44,7 @@ export class UploaderComponent implements OnInit {
                 reader.onload = (e: any) => {
 
                   // this.images.push({url:e.target.result});
-                  this.uploadImage(event.target.files[0],e.target.result)
+                  this.uploadImage(event.target.files[i],e.target.result)
                 };
                 reader.readAsDataURL(event.target.files[i]);
               }
@@ -82,7 +82,7 @@ export class UploaderComponent implements OnInit {
                 reader.onload = (e: any) => {
 
                   // this.images.push({url:e.target.result});
-                  this.uploadImage(event.target.files[0],e.target.result)
+                  this.uploadImage(event.target.files[i],e.target.result)
                 };
                 reader.readAsDataURL(event.target.files[i]);
               }

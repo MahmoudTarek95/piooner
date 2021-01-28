@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url:'https://swagger.city-edge-developments.com/api/'
+  url:'https://swagger.pioneer.city-edge-developments.com/api/'
 };
