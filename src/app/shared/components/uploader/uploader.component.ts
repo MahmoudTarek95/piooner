@@ -81,6 +81,7 @@ export class UploaderComponent implements OnInit {
                 let reader = new FileReader();
                 reader.onload = (e: any) => {
 
+                  
                   // this.images.push({url:e.target.result});
                   this.uploadImage(event.target.files[i],e.target.result)
                 };
