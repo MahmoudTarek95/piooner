@@ -257,7 +257,7 @@
                       <div class="form-group col-lg-6 border-right">
                         <label for="">Upload Image Pc</label>
                         <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
-                          Image dimensions is: 960*650
+                          Image dimensions is: 850*450
                         </ngb-alert>
                         <app-uploader  [type]="'galleryPc'" [images]="formGroup.controls.galleryPc.value" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageGalleryPc($event)" [isMultiable]="true"></app-uploader>
                         <app-uploader  [type]="'galleryPc'" [images]="formGroup.controls.galleryPc.value" [tempImages]="gallerPcImageMap" *ngIf="isEditingMode" [formGroup]="formGroup" (deletedGallery)="deleteGallery($event)" (uploadedImage)="doneUploadingImageGalleryPc($event)" [isMultiable]="true"></app-uploader>
@@ -265,7 +265,7 @@
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Mobile</label>
                         <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
-                          Image dimensions is: 340*320
+                          Image dimensions is: 350*320
                         </ngb-alert>
                         <app-uploader  [type]="'galleryMobile'" [images]="formGroup.controls.galleryMobile.value" *ngIf="!isEditingMode" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageGalleryMobile($event)" [isMultiable]="true"></app-uploader>
                         <app-uploader  [type]="'galleryMobile'" [images]="formGroup.controls.galleryMobile.value" [tempImages]="galleryMobileImageMap" *ngIf="isEditingMode" [formGroup]="formGroup" (deletedGallery)="deleteGallery($event)" (uploadedImage)="doneUploadingImageGalleryMobile($event)" [isMultiable]="true"></app-uploader>

@@ -79,7 +79,7 @@
                       <div class="form-group col-lg-6">
                         <label for="">Upload Image Pc</label>
                         <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
-                          Image dimensions is: 1500*800
+                          Image dimensions is: 1500*500
                         </ngb-alert>
                         <p></p>
                         <app-uploader  [type]="'imagePc'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imagePc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePc($event)" [isMultiable]="false"></app-uploader>
