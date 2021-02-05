@@ -36,6 +36,14 @@ export class AddEditCitesComponent implements OnInit {
       sortOrder:['',[Validators.required]],
       imagePc: ['',[Validators.required]],
       imageMobile: ['',[Validators.required]],
+      keywordAr: ['',[Validators.required]],
+      keywordEn: ['',[Validators.required]],
+      metatagTitleAr: ['',[Validators.required]],
+      metatagTitleEn: ['',[Validators.required]],
+      metatagDescriptionAr: ['',[Validators.required]],
+      metatagDescriptionEn: ['',[Validators.required]],
+      bannerPc:['',[Validators.required]],
+      bannerMobile:['',[Validators.required]],
     })
    }
 
@@ -53,6 +61,12 @@ export class AddEditCitesComponent implements OnInit {
       nameEn: cityData.nameEn,
       nameAr:cityData.nameAr,
       sortOrder:cityData.showOrder,
+      keywordAr: cityData.keywordAr,
+      keywordEn: cityData.keywordEn,
+      metatagTitleAr: cityData.metatagTitleAr,
+      metatagTitleEn: cityData.metatagTitleEn,
+      metatagDescriptionAr: cityData.metatagDescriptionAr,
+      metatagDescriptionEn: cityData.metatagDescriptionEn,
       imagePc: {
         id:cityData.pcImage,
         url:cityData.pcImageUrl
@@ -60,6 +74,16 @@ export class AddEditCitesComponent implements OnInit {
       imageMobile: {
         id:cityData.mobileImage,
         url:cityData.mobileImageUrl
+      },
+      bannerPc:{
+        bannerId:cityData.banner.id,
+        id:cityData.banner.pcImage,
+        url:cityData.banner.pcImageUrl
+      },
+      bannerMobile:{
+        bannerId:cityData.banner.id,
+        id:cityData.banner.mobileImage,
+        url:cityData.banner.mobileImageUrl
       },
     })
     this.selectedProp = cityData.propertyTypeId
@@ -73,6 +97,17 @@ export class AddEditCitesComponent implements OnInit {
   doneUploadingImageMobile(event){
     this.formGroup.patchValue({
       imageMobile:event
+    })
+  }
+
+  doneUploadingImagePcBanner(event){
+    this.formGroup.patchValue({
+      bannerPc:event
+    })
+  }
+  doneUploadingImageMobileBanner(event){
+    this.formGroup.patchValue({
+      bannerMobile:event
     })
   }
 
@@ -94,7 +129,17 @@ export class AddEditCitesComponent implements OnInit {
         showOrder: this.formGroup.controls['sortOrder'].value,
         pcImage: this.formGroup.controls['imagePc'].value.id,
         mobileImage: this.formGroup.controls['imageMobile'].value.id,
-        propertyTypeId:this.selectedProp
+        propertyTypeId:this.selectedProp,
+        keywordAr: this.formGroup.controls['keywordAr'].value,
+        keywordEn: this.formGroup.controls['keywordEn'].value,
+        metatagTitleAr: this.formGroup.controls['metatagTitleAr'].value,
+        metatagTitleEn: this.formGroup.controls['metatagTitleEn'].value,
+        metatagDescriptionAr: this.formGroup.controls['metatagDescriptionAr'].value,
+        metatagDescriptionEn: this.formGroup.controls['metatagDescriptionEn'].value,
+        banner: {
+          pcImage:this.formGroup.controls['bannerPc'].value.id,
+          mobileImage:this.formGroup.controls['bannerMobile'].value.id,
+        },
       }
 
       this.formService.post('City/AddCity',sliderData).subscribe(res => {
@@ -117,7 +162,18 @@ export class AddEditCitesComponent implements OnInit {
         showOrder: this.formGroup.controls['sortOrder'].value,
         pcImage: this.formGroup.controls['imagePc'].value.id ? this.formGroup.controls['imagePc'].value.id :this.formGroup.controls['imagePc'].value,
         mobileImage: this.formGroup.controls['imageMobile'].value.id ? this.formGroup.controls['imageMobile'].value.id : this.formGroup.controls['imageMobile'].value,
-        propertyTypeId:this.selectedProp
+        propertyTypeId:this.selectedProp,
+        keywordAr: this.formGroup.controls['keywordAr'].value,
+        keywordEn: this.formGroup.controls['keywordEn'].value,
+        metatagTitleAr: this.formGroup.controls['metatagTitleAr'].value,
+        metatagTitleEn: this.formGroup.controls['metatagTitleEn'].value,
+        metatagDescriptionAr: this.formGroup.controls['metatagDescriptionAr'].value,
+        metatagDescriptionEn: this.formGroup.controls['metatagDescriptionEn'].value,
+        banner:{
+          id: this.formGroup.controls['bannerPc'].value.bannerId ? this.formGroup.controls['bannerPc'].value.bannerId : 0,
+          pcImage:this.formGroup.controls['bannerPc'].value.id,
+          mobileImage:this.formGroup.controls['bannerMobile'].value.id
+        },
       }
 
       this.formService.post('City/EditCity',sliderData).subscribe(res => {

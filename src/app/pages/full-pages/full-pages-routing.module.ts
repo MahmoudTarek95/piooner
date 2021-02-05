@@ -123,11 +123,13 @@ const routes: Routes = [
       },
       {
         path:'contactUsForm',
-        component:ContactUsFormComponent
+        component:ContactUsFormComponent,
+        canActivate:[AuthRoleGuard],
       },
       {
         path:'contactUsForm/view/:id',
-        component:ViewContactUsFormComponent
+        component:ViewContactUsFormComponent,
+        canActivate:[AuthRoleGuard],
       },
       {
         path:'logo',

@@ -59,7 +59,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     private configService: ConfigService, private cdr: ChangeDetectorRef,
     private authRolesService:AuthRolesService,
     private authService:AuthService,
-    private notificationService:NotificationService) {
+    private notificationService:NotificationService,
+    public userRole:AuthRolesService) {
     this.notificationService.sendNotification()
 
 

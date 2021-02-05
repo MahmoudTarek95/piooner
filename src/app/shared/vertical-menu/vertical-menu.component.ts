@@ -54,6 +54,13 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       if(res.title == 'User Managment'){
         res['hasPermission'] = this.authRoleService.getUserRole()
       }
+      if(res.title == 'Home'){
+        res.submenu.map(h => {
+          if(h.title == "Contact Us Form"){
+            h['hasPermission'] = this.authRoleService.getUserRole()
+          }
+        })
+      }
     })
   }
 

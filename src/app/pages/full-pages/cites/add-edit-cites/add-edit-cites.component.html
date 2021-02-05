@@ -30,6 +30,26 @@
                         <div *ngIf="formGroup.controls.nameEn.errors?.required && formGroup.controls.nameEn.touched" class="help-block mt-1 text-danger"> <i
                           class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Keyword</label>
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.keywordEn.errors?.required && formGroup.controls.keywordEn.touched}" formControlName="keywordEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.keywordEn.errors?.required && formGroup.controls.keywordEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Metatag Title</label>
+                        <input [ngClass]="{ 'is-invalid': formGroup.controls.metatagTitleEn.errors?.required && formGroup.controls.metatagTitleEn.touched}" formControlName="metatagTitleEn" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.metatagTitleEn.errors?.required && formGroup.controls.metatagTitleEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">metatag Description</label>
+                        <textarea [ngClass]="{ 'is-invalid': formGroup.controls.metatagDescriptionEn.errors?.required && formGroup.controls.metatagDescriptionEn.touched}" formControlName="metatagDescriptionEn" class="form-control"  name="" id="" cols="30" rows="10"></textarea>
+                        <div *ngIf="formGroup.controls.metatagDescriptionEn.errors?.required && formGroup.controls.metatagDescriptionEn.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
                     </div>
                   </ng-template>
                 </li>
@@ -41,6 +61,26 @@
                         <label for="">Name</label>
                         <input  dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.nameAr.errors?.required && formGroup.controls.nameAr.touched}" formControlName="nameAr" type="text" class="form-control" >
                         <div *ngIf="formGroup.controls.nameAr.errors?.required && formGroup.controls.nameAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Keyword</label>
+                        <input dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.keywordAr.errors?.required && formGroup.controls.keywordAr.touched}" formControlName="keywordAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.keywordAr.errors?.required && formGroup.controls.keywordAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Metatag Title</label>
+                        <input  dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.metatagTitleAr.errors?.required && formGroup.controls.metatagTitleAr.touched}" formControlName="metatagTitleAr" type="text" class="form-control" >
+                        <div *ngIf="formGroup.controls.metatagTitleAr.errors?.required && formGroup.controls.metatagTitleAr.touched" class="help-block mt-1 text-danger"> <i
+                          class="ft-alert-circle align-middle"></i> This field is required </div>
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">metatag Description</label>
+                        <textarea dir="rtl" [ngClass]="{ 'is-invalid': formGroup.controls.metatagDescriptionAr.errors?.required && formGroup.controls.metatagDescriptionAr.touched}" formControlName="metatagDescriptionAr" class="form-control"  name="" id="" cols="30" rows="10"></textarea>
+                        <div *ngIf="formGroup.controls.metatagDescriptionAr.errors?.required && formGroup.controls.metatagDescriptionAr.touched" class="help-block mt-1 text-danger"> <i
                           class="ft-alert-circle align-middle"></i> This field is required </div>
                       </div>
                     </div>
@@ -79,6 +119,27 @@
                         </ngb-alert>
                         <app-uploader [type]="'imageMobile'" *ngIf="!isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
                         <app-uploader [type]="'imageMobile'" *ngIf="isEditingMode" [imageSrc]="formGroup.controls.imageMobile.value.url"[formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobile($event)" [isMultiable]="false"></app-uploader>
+                      </div>
+                    </div>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="4">
+                  <a ngbNavLink>Banner</a>
+                  <ng-template ngbNavContent>
+                    <div class="form-row">
+                      <div class="form-group col-lg-6">
+                        <label for="">Upload Image Pc</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 1500*800
+                        </ngb-alert>
+                        <app-uploader  [type]="'bannerPc'" [imageSrc]="formGroup.controls.bannerPc.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImagePcBanner($event)" [isMultiable]="false"></app-uploader>
+                      </div>
+                      <div class="form-group col-lg-6">
+                        <label for="">Upload Image Mobile</label>
+                        <ngb-alert style="padding: 7px;width: 315px;" type="primary" class="mb-2" [dismissible]="false">
+                          Image dimensions is: 360*480
+                        </ngb-alert>
+                        <app-uploader [type]="'bannerMobile'" [imageSrc]="formGroup.controls.bannerMobile.value.url" [formGroup]="formGroup" (uploadedImage)="doneUploadingImageMobileBanner($event)" [isMultiable]="false"></app-uploader>
                       </div>
                     </div>
                   </ng-template>

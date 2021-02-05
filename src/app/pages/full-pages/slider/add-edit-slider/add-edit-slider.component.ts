@@ -51,7 +51,7 @@ export class AddEditSliderComponent implements OnInit {
       subtitleEn: sliderData.subTitleEn,
       subtitleAr:sliderData.subTitleAr,
       link:sliderData.link,
-      showOrder:sliderData.showOrder,
+      sortOrder:sliderData.showOrder,
       imagePc: {
         id:sliderData.pcImage,
         url:sliderData.pcImageUrl
